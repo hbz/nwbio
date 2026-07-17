@@ -4,7 +4,8 @@ dd {
 
 #header {
     width: 100%;
-    background-image: url("../static/images/clouds.jpg");
+    border: 1px solid #434553;
+    border-radius: 0.25rem;
     background-repeat: repeat-x;
     padding-left: 12px;
 }
@@ -137,9 +138,14 @@ a.active {
     height: 50px;
 }
 
+.nrw-logo {
+    height: 45px;
+}
+
 .footer-card {
     margin-top: 35px !important;
     padding: 10px;
+    border-color: #434553;
 }
 
 .footer {

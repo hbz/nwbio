@@ -10,9 +10,9 @@
         <div layout:fragment="content">
             <span class="float-end">
                 <img
-                    class="media-object hbz-logo"
-                    th:src="@{/gnd/assets/images/hbz.svg}"
-                    alt="hbz" />
+                    class="media-object nrw-logo"
+                    th:src="@{/gnd/assets/images/nrw.png}"
+                    alt="NRW" />
             </span>
             <h1 class="page-header">
                 [[#{app.title}]]
@@ -21,6 +21,13 @@
             <div class="row">
                 <div class="col-9 intro">
                     <div th:utext="${dataset.description.de}"></div>
+                    <mark>
+                        Das
+                        <a href="https://biographie-nrw.uni-muenster.de/">
+                            Biographische Portal NRW
+                        </a>
+                        wird in diesem Entwicklungsprojekt auf Basis von lobid-gnd neu umgesetzt.
+                    </mark>
                 </div>
                 <div class="col-3">
                     <div th:replace="~{fragments/figure}" />

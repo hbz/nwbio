@@ -1,15 +1,15 @@
-# lobid-gnd-ui
+# nwbio
 
-This is a prototype for a lobid-gnd UI implementation based on Spring Boot. It builds with Gradle and uses Thymeleaf, Bootstrap, and Webpack for the frontend. It is based on the reactive Spring WebFlux stack, using the functional/HTTP-oriented WebFlux.fn style. It fetches JSON data from the lobid-gnd API.
+This is a prototype based on [lobid-gnd-ui](https://github.com/hbz/lobid-gnd-ui).
 
-[![Build](https://github.com/hbz/lobid-gnd-ui/workflows/Build/badge.svg)](https://github.com/hbz/lobid-gnd-ui/actions?query=workflow%3ABuild)
+[![Build](https://github.com/hbz/nwbio/workflows/Build/badge.svg)](https://github.com/hbz/nwbio/actions?query=workflow%3ABuild)
 
 ## Prerequisites
 
 - Git, install with e.g.: `sudo apt install git-all`
 - Java 21, install with e.g.: `sudo apt install openjdk-21-jdk`
-- Get the code repo: `git clone https://github.com/hbz/lobid-gnd-ui.git`
-- Change into the repo directory: `cd lobid-gnd-ui`
+- Get the code repo: `git clone https://github.com/hbz/nwbio.git`
+- Change into the repo directory: `cd nwbio`
 - Make the Gradle wrapper executable: `chmod u+x ./gradlew`
 
 ## Start server
@@ -75,7 +75,7 @@ Build the application:
 Start, stop, restart, or check status of the service:
 
 ```
-sudo systemctl start|stop|restart|status lobid-gnd-ui
+sudo systemctl start|stop|restart|status nwbio
 ```
 
 ## Production setup
@@ -83,15 +83,15 @@ sudo systemctl start|stop|restart|status lobid-gnd-ui
 Initial service setup (required only once):
 
 ```
-sudo ln -sr build/libs/lobid-gnd-ui-0.0.1-SNAPSHOT.jar /opt/lobid-gnd-ui.jar
-sudo ln -sr lobid-gnd-ui.service /etc/systemd/system/lobid-gnd-ui.service
+sudo ln -sr build/libs/nwbio-0.0.1-SNAPSHOT.jar /opt/nwbio.jar
+sudo ln -sr nwbio.service /etc/systemd/system/nwbio.service
 sudo systemctl daemon-reload
 ```
 
 For debugging etc. start the application manually:
 
 ```
-java -Dspring.profiles.active=production -jar ./build/libs/lobid-gnd-ui-0.0.1-SNAPSHOT.jar
+java -Dspring.profiles.active=production -jar ./build/libs/nwbio-0.0.1-SNAPSHOT.jar
 ```
 
 The server should be running at http://localhost:8080/gnd.

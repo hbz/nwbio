@@ -12,17 +12,17 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class IndexTests extends HtmlPageTests {
 
     @ParameterizedTest
-    @ValueSource(strings = {PRODUCTION, DEVELOPMENT})
+    @ValueSource(strings = {DEVELOPMENT})
     public void testIndexContent(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, "").asNormalizedText())
-                .contains("Rechercheoberfläche & LOD-API für die GND")
+                .contains("Entwicklungsprojekt")
                 .contains("Die Gemeinsame Normdatei (GND) enthält über 8 Millionen Normdatensätze")
                 .contains("Die GND enthält normierte Einträge für Personen, Körperschaften")
                 .contains("lobid-gnd bietet eine Rechercheoberfläche zum Durchsuchen der GND");
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {PRODUCTION, DEVELOPMENT})
+    @ValueSource(strings = {DEVELOPMENT})
     public void testIndexLinks(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, "").getElementsByTagName("a").toString())
                 .contains("https://www.dnb.de/lds#doc58246bodyText1")
@@ -30,11 +30,11 @@ public class IndexTests extends HtmlPageTests {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {PRODUCTION, DEVELOPMENT})
+    @ValueSource(strings = {DEVELOPMENT})
     public void testIndexImages(String baseUrl) throws IOException {
         HtmlPage indexPage = pageFor(baseUrl, "");
         assertThat(indexPage.getElementsByTagName("img").toString())
-                .containsAnyOf("hbz.png", "hbz.svg")
+                .contains("nrw.png")
                 .contains("https://commons.wikimedia.org/wiki/Special:FilePath");
         HtmlFigureCaption figcaption = indexPage.getFirstByXPath("//figcaption");
         assertThat(figcaption.getTextContent())

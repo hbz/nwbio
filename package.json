@@ -1,5 +1,5 @@
 {
-    "name": "lobid-gnd-ui",
+    "name": "nwbio",
     "author": "https://lobid.org/team",
     "scripts": {
         "devserver": "webpack serve --open /gnd --mode development",

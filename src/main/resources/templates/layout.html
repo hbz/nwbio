@@ -35,11 +35,11 @@
                 <div class="container-fluid" id="header">
                     <div class="navbar-header">
                         <a th:href="@{/gnd}" class="navbar-brand">
-                            <img
-                                th:src="@{/gnd/assets/images/logo.png}"
-                                th:alt="#{app.title}"
-                                class="d-inline-block align-top" />
-                            <span class="ps-1 text-secondary"><strong>lobid</strong></span>
+                            <i class="bi bi-house-gear-fill d-inline-block align-top"></i>
+                            <span class="ps-1 text-primary"><strong>[[#{app.title}]]</strong></span>
+                            <sup>
+                                <span class="badge text-bg-secondary text-light">prototype</span>
+                            </sup>
                         </a>
                         <button
                             type="button"
@@ -134,7 +134,7 @@
                                 <li class="dropdown-header">Kontakt</li>
                                 <li class="dropdown-item">
                                     <a
-                                        th:href="@{'mailto:lobid-admin@hbz-nrw.de?subject=Feedback%20zu%20lobid-gnd,%20aktuelle%20Seite%20' + ${request.path}}"
+                                        th:href="@{'mailto:lobid-admin@hbz-nrw.de?subject=Feedback%20zu%20nwbio,%20aktuelle%20Seite%20' + ${request.path}}"
                                         >Feedback zur aktuellen Seite</a
                                     >
                                 </li>
@@ -186,8 +186,12 @@
                     <div class="card-body footer">
                         <span class="float-start">
                             <img th:src="@{/gnd/assets/images/wappen.png}" alt="NRW-Wappen" />
-                            &nbsp; lobid-gnd | ein Dienst des
-                            <a th:href="@{https://www.hbz-nrw.de}">hbz</a>
+                            &nbsp; [[#{app.title}]] | ein Entwicklungsprojekt von
+                            <a th:href="@{https://landesbibliotheken.nrw}">
+                                landesbibliotheken.nrw
+                            </a>
+                            &
+                            <a th:href="@{https://www.hbz-nrw.de}">hbz-nrw</a>
                         </span>
                         <span class="float-end">
                             <a th:href="@{http://lobid.org/warranty}">Gewährleistung</a> |
@@ -200,7 +204,7 @@
                             <a th:href="@{https://openbiblio.social/@lobid}"
                                 ><i class="bi bi-mastodon"></i> Mastodon</a
                             >&nbsp;
-                            <a th:href="@{http://github.com/hbz/lobid-gnd-ui}"
+                            <a th:href="@{http://github.com/hbz/nwbio}"
                                 ><i class="bi bi-github"></i> GitHub</a
                             >&nbsp;
                             <a th:href="@{http://blog.lobid.org}"

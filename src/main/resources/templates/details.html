@@ -26,7 +26,7 @@
                     th:each="type : ${entity.type}"
                     th:href="@{/gnd/search(filter=${'+(type:'+type+')'})}"
                     th:text="${entity.labels.get(type)}"
-                    class="badge text-bg-primary">
+                    class="badge text-bg-primary text-light">
                     Type...
                 </a>
                 <a
