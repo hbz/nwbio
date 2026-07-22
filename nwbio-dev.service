@@ -1,0 +1,14 @@
+[Unit]
+Description=nwbio-dev
+After=syslog.target
+After=network.target
+
+[Service]
+ExecStart=/usr/lib/jvm/java-21-openjdk-amd64/bin/java -Dspring.profiles.active=production -Dserver.port=8081 -jar /opt/nwbio-dev.jar
+Restart=always
+StandardOutput=journal
+StandardError=journal+console
+SyslogIdentifier=nwbio
+
+[Install]
+WantedBy=multi-user.target
