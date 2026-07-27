@@ -1,6 +1,6 @@
 # nwbio
 
-This is a prototype based on [lobid-gnd-ui](https://github.com/hbz/lobid-gnd-ui).
+This is a prototype based on [lobid-gnd-ui](https://github.com/hbz/lobid-gnd-ui). See current changes in this [fork](https://github.com/hbz/lobid-gnd-ui/compare/main...hbz:nwbio:main), in [upstream](https://github.com/hbz/nwbio/compare/main...hbz:lobid-gnd-ui:main), in [dev](https://github.com/hbz/nwbio/compare/main...dev) and [test](https://github.com/hbz/nwbio/compare/main...test) deployments.
 
 [![Build](https://github.com/hbz/nwbio/workflows/Build/badge.svg)](https://github.com/hbz/nwbio/actions?query=workflow%3ABuild)
 
