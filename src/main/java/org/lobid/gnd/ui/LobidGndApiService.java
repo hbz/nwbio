@@ -64,7 +64,7 @@ public class LobidGndApiService {
                         builder.path("/search")
                                 .queryParam("q", q())
                                 .queryParam("size", "1")
-                                .queryParam("from", String.valueOf(new Random().nextInt(25000)))
+                                .queryParam("from", String.valueOf(new Random().nextInt(7500)))
                                 .build();
         return gndCall(uriFunction)
                 .map(this::firstMemberAsMap)
