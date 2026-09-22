@@ -44,7 +44,10 @@
                             valueLabel=${collection.containsKey('name') ? collection.name : collection.id}">
                         <img
                             th:if="${collection.containsKey('icon')}"
-                            th:src="|https://lobid.org/imagesproxy?url=${collection.icon}|"
+                            th:with="
+                                proxyPrefix='https://lobid.org/imagesproxy?url=',
+                                isLobid=${#strings.contains(collection.icon, 'lobid.org')}"
+                            th:src="${isLobid ? collection.icon : proxyPrefix + collection.icon}"
                             style="height: 1em"
                             alt="&#128443;" />
                         <a
