@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $("#gnd-query").categoryAutocomplete({
         source: function (request, response) {
             $.ajax({
-                url: "/gnd/search",
+                url: "/search",
                 dataType: "jsonp",
                 data: {
                     q: request.term,
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
         },
         select: function (event, ui) {
-            window.location.href = ui.item.id.replace("https://d-nb.info", "");
+            window.location.href = ui.item.id.replace("https://d-nb.info/gnd", "");
             event.preventDefault();
         },
     });
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
             zoomControl: true,
         });
 
-        L.Icon.Default.imagePath = "/gnd/assets/images/leaflet/";
+        L.Icon.Default.imagePath = "/assets/images/leaflet/";
         const marker = L.marker(center, { title: mapElement.dataset.title });
 
         marker.addTo(map);
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (edgeId) {
                     const [rel, to] = edgeId.split("_");
                     if (rel && /^[a-zA-Z]+$/.test(rel)) {
-                        window.location.href = `/gnd/search?q=${rel}.id:"https://d-nb.info/gnd/${to}"`;
+                        window.location.href = `/search?q=${rel}.id:"https://d-nb.info/gnd/${to}"`;
                     }
                 }
             }

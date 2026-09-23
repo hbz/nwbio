@@ -58,7 +58,7 @@
             <div th:case="true">
                 <span th:text="${val.label}">Aktiver Filter</span>
                 <a
-                    th:href="@{/gnd/search(q=${q}, size=${size}, from=${0}, 
+                    th:href="@{/search(q=${q}, size=${size}, from=${0}, 
                                 filter=${@facets.without(filter, key, val.key)})}">
                     <span class="badge bg-primary">
                         Filter entfernen <span class="bi bi-x-lg" />
@@ -67,7 +67,7 @@
             </div>
             <a
                 th:case="false"
-                th:href="@{/gnd/search(q=${q}, size=${size}, from=${0}, 
+                th:href="@{/search(q=${q}, size=${size}, from=${0}, 
                             filter=${@facets.filter(filter, key, val.key)})}"
                 th:text="${val.label + ' (' + @pagination.formatCount(val.doc_count) + ')'}">
                 Feld (1)

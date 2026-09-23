@@ -11,7 +11,7 @@
             <i th:class="${@icons.iconClass(member.type)}" />
         </td>
         <td>
-            <a th:text="${member.preferredName}" th:href="@{'/gnd/' + ${member.gndIdentifier}}">
+            <a th:text="${member.preferredName}" th:href="@{'/' + ${member.gndIdentifier}}">
                 Name...
             </a>
         </td>

@@ -89,6 +89,7 @@ public class ApiCallHandler {
                 .scheme(baseUri.getScheme())
                 .host(baseUri.getHost())
                 .port(baseUri.getPort())
+                .replacePath(baseUri.getPath() + request.path())
                 .build(true)
                 .toUri();
     }

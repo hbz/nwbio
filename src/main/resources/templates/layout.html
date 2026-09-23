@@ -7,12 +7,12 @@
         <title layout:title-pattern="$CONTENT_TITLE">[[#{app.title}]]</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/x-icon" href="/gnd/assets/images/logo.png" />
+        <link rel="icon" type="image/x-icon" href="/assets/images/logo.png" />
         <link
             th:if="${!request.isDevserver}"
-            th:href="@{/gnd/assets/css/bundle.css}"
+            th:href="@{/assets/css/bundle.css}"
             rel="stylesheet" />
-        <script th:src="@{/gnd/assets/js/bundle.js}" defer></script>
+        <script th:src="@{/assets/js/bundle.js}" defer></script>
         <script th:inline="javascript">
             const API_BASE_URL = /*[[${@environment.getProperty('app.api')}]]*/ "";
         </script>
@@ -34,7 +34,7 @@
             <nav class="navbar navbar-expand-md">
                 <div class="container-fluid" id="header">
                     <div class="navbar-header">
-                        <a th:href="@{/gnd}" class="navbar-brand">
+                        <a th:href="@{/}" class="navbar-brand">
                             <i class="bi bi-house-gear-fill d-inline-block align-top"></i>
                             <span class="ps-1 text-primary"><strong>[[#{app.title}]]</strong></span>
                             <sup>
@@ -56,28 +56,19 @@
                         <ul class="nav navbar-nav" id="main-links">
                             <li class="navbar-item">
                                 <a
-                                    th:href="@{/gnd}"
-                                    class="nav-link"
-                                    title="Einfache Suchoberfläche"
-                                    th:classappend="${request.path == '/gnd' ? 'active' : ''}"
-                                    >gnd</a
-                                >
-                            </li>
-                            <li class="navbar-item">
-                                <a
-                                    th:href="@{/gnd/search}"
+                                    th:href="@{/search}"
                                     class="nav-link"
                                     title="Die gesamte GND erkunden"
-                                    th:classappend="${request.path == '/gnd/search'} ? 'active' : ''"
+                                    th:classappend="${request.path == '/search'} ? 'active' : ''"
                                     >Erkunden</a
                                 >
                             </li>
                             <li class="navbar-item">
                                 <a
-                                    th:href="@{/gnd/api}"
+                                    th:href="@{/api}"
                                     class="nav-link"
                                     title="Programmierschnittstelle"
-                                    th:classappend="${request.path == '/gnd/api'} ? 'active' : ''"
+                                    th:classappend="${request.path == '/api'} ? 'active' : ''"
                                     >API</a
                                 >
                             </li>
@@ -100,9 +91,9 @@
                                 <li class="dropdown-header">Dokumentation</li>
                                 <li class="dropdown-item">
                                     <a
-                                        th:href="@{/gnd/dataset}"
+                                        th:href="@{/dataset}"
                                         class="nav-link"
-                                        th:classappend="${request.path == '/gnd/dataset'} ? 'active' : ''"
+                                        th:classappend="${request.path == '/dataset'} ? 'active' : ''"
                                         >Datenbeschreibung</a
                                     >
                                 </li>
@@ -121,7 +112,7 @@
                                     >
                                 </li>
                                 <li class="dropdown-item">
-                                    <a th:href="@{/gnd/reconcile}" class="nav-link" target="_blank"
+                                    <a th:href="@{/reconcile}" class="nav-link" target="_blank"
                                         >Integration in OpenRefine</a
                                     >
                                 </li>
@@ -143,7 +134,7 @@
                     </div>
                 </div>
             </nav>
-            <form action="#" th:action="@{/gnd/search}" method="GET" id="search-form">
+            <form action="#" th:action="@{/search}" method="GET" id="search-form">
                 <div class="input-group my-2" id="search-simple">
                     <input
                         autofocus=""
@@ -185,7 +176,7 @@
                 <div class="card my-3 footer-card">
                     <div class="card-body footer">
                         <span class="float-start">
-                            <img th:src="@{/gnd/assets/images/wappen.png}" alt="NRW-Wappen" />
+                            <img th:src="@{/assets/images/wappen.png}" alt="NRW-Wappen" />
                             &nbsp; [[#{app.title}]] | ein Entwicklungsprojekt von
                             <a th:href="@{https://landesbibliotheken.nrw}">
                                 landesbibliotheken.nrw

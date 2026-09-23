@@ -11,7 +11,7 @@ import org.htmlunit.html.HtmlPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-/* Tests for the `/gnd/api` documentation page */
+/* Tests for the `/api` documentation page */
 public class ApiDocTests extends HtmlPageTests {
 
     private static final String API_DOC = "/api";
@@ -28,8 +28,8 @@ public class ApiDocTests extends HtmlPageTests {
         assertThat(pageFor(baseUrl, API_DOC).asNormalizedText())
                 .contains("lobid-gnd API")
                 .contains("Richtlinien zur API-Nutzung")
-                .contains("Suche: /gnd/search?q=text")
-                .contains("Direktzugriff: /gnd/<id>.json")
+                .contains("Suche: /search?q=text")
+                .contains("Direktzugriff: /<id>.json")
                 .contains("Inhaltstypen")
                 .contains("Bulk-Downloads")
                 .contains("Autovervollständigung")
@@ -42,7 +42,7 @@ public class ApiDocTests extends HtmlPageTests {
     public void testSearchAllExample(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, API_DOC).asNormalizedText())
                 .contains("Alles")
-                .contains("/gnd/search?q=*&format=json");
+                .contains("/search?q=*&format=json");
     }
 
     @ParameterizedTest
@@ -59,7 +59,7 @@ public class ApiDocTests extends HtmlPageTests {
     public void testSearchAllFieldsExample(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, API_DOC).asNormalizedText())
                 .contains("Alle Felder")
-                .contains("/gnd/search?q=london&format=json");
+                .contains("/search?q=london&format=json");
     }
 
     @ParameterizedTest
@@ -77,7 +77,7 @@ public class ApiDocTests extends HtmlPageTests {
     public void testFieldSearchExample(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, API_DOC).asNormalizedText())
                 .contains("Feldsuche")
-                .contains("/gnd/search?q=preferredName:Twain&format=json");
+                .contains("/search?q=preferredName:Twain&format=json");
     }
 
     @ParameterizedTest
@@ -118,23 +118,23 @@ public class ApiDocTests extends HtmlPageTests {
     @ValueSource(strings = {DEVELOPMENT})
     public void testDirectAccessExamples(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, API_DOC).asNormalizedText())
-                .contains("Direktzugriff: /gnd/<id>.json")
+                .contains("Direktzugriff: /<id>.json")
                 .contains("London")
-                .contains("/gnd/4074335-4.json")
+                .contains("/4074335-4.json")
                 .contains("hbz")
-                .contains("/gnd/2047974-8.json")
+                .contains("/2047974-8.json")
                 .contains("Goethe")
-                .contains("/gnd/118540238.json");
+                .contains("/118540238.json");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
-    public void testDirectAccessLondonJsonEndpoint(String baseUrl)
+    public void testDirectAccessAlbertJsonEndpoint(String baseUrl)
             throws IOException, InterruptedException {
-        assertThat(fetchHttpResponse(baseUrl, "4074335-4.json"))
+        assertThat(fetchHttpResponse(baseUrl, ALBERT + ".json"))
                 .is(validJson())
                 .contains("\"id\"")
-                .contains("4074335-4");
+                .contains(ALBERT);
     }
 
     @ParameterizedTest
@@ -164,25 +164,25 @@ public class ApiDocTests extends HtmlPageTests {
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testRdfXmlFormatEndpoint(String baseUrl) throws IOException, InterruptedException {
-        assertThat(fetchHttpResponse(baseUrl, "4074335-4.rdf"))
+        assertThat(fetchHttpResponse(baseUrl, ALBERT + ".rdf"))
                 .contains("rdf:RDF")
-                .contains("4074335-4");
+                .contains(ALBERT);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testTurtleFormatEndpoint(String baseUrl) throws IOException, InterruptedException {
-        assertThat(fetchHttpResponse(baseUrl, "4074335-4.ttl"))
+        assertThat(fetchHttpResponse(baseUrl, ALBERT + ".ttl"))
                 .contains("@prefix")
-                .contains("4074335-4");
+                .contains(ALBERT);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testNTriplesFormatEndpoint(String baseUrl)
             throws IOException, InterruptedException {
-        String response = fetchHttpResponse(baseUrl, "4074335-4.nt");
-        assertThat(response).contains("4074335-4");
+        String response = fetchHttpResponse(baseUrl, ALBERT + ".nt");
+        assertThat(response).contains(ALBERT);
         assertThat(response.split("\n").length).isGreaterThan(0);
     }
 
@@ -203,7 +203,7 @@ public class ApiDocTests extends HtmlPageTests {
     public void testBulkDownloadJsonLinesEndpoint(String baseUrl)
             throws IOException, InterruptedException {
         String[] lines =
-                fetchHttpResponse(baseUrl, "search?q=type:Country&format=jsonl").split("\n");
+                fetchHttpResponse(baseUrl, "search?q=type:Family&format=jsonl").split("\n");
         assertThat(lines.length).isGreaterThan(0);
         assertThat(lines[0]).is(validJson());
     }
@@ -226,7 +226,7 @@ public class ApiDocTests extends HtmlPageTests {
                 .contains("input.search-gnd")
                 .contains(".autocomplete")
                 .contains("url")
-                .contains(": \"/gnd/search\"")
+                .contains(": \"/search\"")
                 .contains("dataType")
                 .contains(": \"jsonp\"")
                 .contains("q")
@@ -239,9 +239,9 @@ public class ApiDocTests extends HtmlPageTests {
     @ValueSource(strings = {DEVELOPMENT})
     public void testAutocompleteSuggestEndpoint(String baseUrl)
             throws IOException, InterruptedException {
-        assertThat(fetchHttpResponse(baseUrl, "search?q=Twain&format=json:suggest"))
+        assertThat(fetchHttpResponse(baseUrl, "search?q=Pseudo-Albertus&format=json:suggest"))
                 .is(validJson())
-                .contains("Twain, Mark");
+                .contains("Albertus, Magnus");
     }
 
     @ParameterizedTest
@@ -252,7 +252,7 @@ public class ApiDocTests extends HtmlPageTests {
         assertApiEntityCallsContain(baseUrl, "ttl", "@prefix schema");
         assertApiEntityCallsContain(baseUrl, "rdf", "rdf:RDF");
         assertApiEntityCallsContain(baseUrl, "nt", "\"Köln\" .");
-        assertApiEntityCallsContain(baseUrl, "html", "<title>Köln</title>");
+        assertApiEntityCallsContain(baseUrl, "html", "<title>Albertus, Magnus, Heiliger</title>");
     }
 
     @ParameterizedTest
@@ -277,7 +277,7 @@ public class ApiDocTests extends HtmlPageTests {
     }
 
     private String entity(String baseUrl, String suffix) throws IOException, InterruptedException {
-        return fetchHttpResponse(baseUrl, HtmlPageTests.COLOGNE + suffix, "text/html");
+        return fetchHttpResponse(baseUrl, HtmlPageTests.ALBERT + suffix, "text/html");
     }
 
     @ParameterizedTest
@@ -292,13 +292,16 @@ public class ApiDocTests extends HtmlPageTests {
         HtmlButton searchButton = apiPage.getFirstByXPath("//button[contains(text(), 'Suchen')]");
         assertThat(searchButton).as("search button should exist").isNotNull();
 
-        labelInput.type("Make-Tuwen");
+        labelInput.type("Pseudo-Albert");
         webClient.waitForBackgroundJavaScript(3000);
         HtmlElement suggestion =
                 apiPage.getFirstByXPath("//ul[contains(@class, 'ui-autocomplete')]/li/*[1]");
+        String suggestionText =
+                "Albertus, Magnus, Heiliger | Katholischer Theologe; Bischof; Philosoph; Alchemist;"
+                        + " Naturwissenschaftler; Heiliger";
         assertThat(suggestion.asNormalizedText())
                 .as("suggestion should contain details")
-                .contains("Twain, Mark | Schriftsteller; Journalist; Drucker; Lotse; Soldat");
+                .contains(suggestionText);
 
         if (suggestion instanceof HtmlAnchor) {
             suggestion.click();
@@ -312,14 +315,14 @@ public class ApiDocTests extends HtmlPageTests {
 
         assertThat(labelInput.getValue())
                 .as("form should be filled with details for selected suggestion")
-                .contains("Twain, Mark | Schriftsteller; Journalist; Drucker; Lotse; Soldat");
+                .contains(suggestionText);
         assertThat(idInput.getValue())
                 .as("form should be filled with ID search for selected suggestion")
-                .contains("id:\"https://d-nb.info/gnd/118624822\"");
+                .contains("id:\"https://d-nb.info/gnd/118637649\"");
         HtmlPage searchResults = searchButton.click();
         assertThat(searchResults.asNormalizedText())
                 .as("search results should contain the label for the searched ID")
-                .contains("Twain, Mark");
+                .contains("Albertus, Magnus");
     }
 
     @ParameterizedTest
@@ -329,7 +332,7 @@ public class ApiDocTests extends HtmlPageTests {
                 .contains("JSON-LD")
                 .contains("JSON-LD Playground")
                 .contains("JSON-LD Context")
-                .contains("/gnd/context.jsonld")
+                .contains("/context.jsonld")
                 .contains("RDF-Konvertierung")
                 .contains("jsonld-cli")
                 .contains("N-Quads");
@@ -366,12 +369,12 @@ public class ApiDocTests extends HtmlPageTests {
     @ValueSource(strings = {DEVELOPMENT})
     public void testApiDocLinksExist(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, API_DOC).getElementsByTagName("a").toString())
-                .contains("/gnd/search?q=")
-                .contains("/gnd/4074335-4")
-                .contains("/gnd/context.jsonld")
+                .contains("/search?q=")
+                .contains("/4074335-4")
+                .contains("/context.jsonld")
                 .contains("http://json-ld.org/playground/")
                 .contains("https://github.com/digitalbazaar/jsonld-cli")
-                .contains("/gnd/reconcile")
+                .contains("/reconcile")
                 .contains("http://lobid.org/usage-policy")
                 .contains("http://blog.lobid.org");
     }
