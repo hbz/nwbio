@@ -24,7 +24,7 @@
                 </a>
                 <a
                     th:each="type : ${entity.type}"
-                    th:href="@{/gnd/search(filter=${'+(type:'+type+')'})}"
+                    th:href="@{/search(filter=${'+(type:'+type+')'})}"
                     th:text="${entity.labels.get(type)}"
                     class="badge text-bg-primary text-light">
                     Type...
@@ -32,11 +32,8 @@
                 <a
                     class="float-end"
                     title="JSON-LD-Indexdaten anzeigen"
-                    th:href="|/gnd/${entity.gndIdentifier}.json|">
-                    <img
-                        class="json-ld-icon"
-                        th:src="@{/gnd/assets/images/json-ld.png}"
-                        alt="JSON" />
+                    th:href="|/${entity.gndIdentifier}.json|">
+                    <img class="json-ld-icon" th:src="@{/assets/images/json-ld.png}" alt="JSON" />
                 </a>
                 <br />
                 <small th:text="${entity.labels.get(entity.gndIdentifier)}">Description...</small>

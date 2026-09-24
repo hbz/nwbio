@@ -44,7 +44,10 @@
                             valueLabel=${collection.containsKey('name') ? collection.name : collection.id}">
                         <img
                             th:if="${collection.containsKey('icon')}"
-                            th:src="|https://lobid.org/imagesproxy?url=${collection.icon}|"
+                            th:with="
+                                proxyPrefix='https://lobid.org/imagesproxy?url=',
+                                isLobid=${#strings.contains(collection.icon, 'lobid.org')}"
+                            th:src="${isLobid ? collection.icon : proxyPrefix + collection.icon}"
                             style="height: 1em"
                             alt="&#128443;" />
                         <a
@@ -59,14 +62,14 @@
                         th:with="valueLabel=${value.containsKey('label') ? value.label : value.id}">
                         <a
                             th:title='|Linked-Data-Quelle zu "${valueLabel}" anzeigen|'
-                            th:href="${#strings.replace(value.id, 'https://d-nb.info/gnd', '/gnd')}"
+                            th:href="${#strings.replace(value.id, 'https://d-nb.info/gnd', 'https://lobid.org/gnd')}"
                             th:text="${valueLabel}">
                             Link label...
                         </a>
                         <a
                             th:unless="${skipSearchLink}"
                             th:title='|Weitere Einträge mit ${fieldLabel} "${valueLabel}" suchen|'
-                            th:href='@{/gnd/search(q=|${field.key}.id:"${value.id}"|)}'>
+                            th:href='@{/search(q=|${field.key}.id:"${value.id}"|)}'>
                             <span class="bi bi-search" />
                         </a>
                     </span>
@@ -78,7 +81,7 @@
                         <a
                             th:unless="${skipSearchLink}"
                             th:title='|Weitere Einträge mit ${fieldLabel} "${value}" suchen|'
-                            th:href='@{/gnd/search(q=|${field.key}:"${value}"|)}'>
+                            th:href='@{/search(q=|${field.key}:"${value}"|)}'>
                             <span class="bi bi-search" />
                         </a>
                     </span>

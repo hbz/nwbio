@@ -35,9 +35,9 @@ public abstract class HtmlPageTests {
 
     protected static final String PRODUCTION = "https://lobid.org";
     protected static final String DEVELOPMENT = "http://localhost";
-    protected static final String COLOGNE = "4031483-2";
+    protected static final String ALBERT = "118637649";
     protected static final String PERSON_HISTORICAL = "118637649";
-    protected static final String PERSON_ALIVE = "122729501";
+    protected static final String PERSON_ALIVE = "122639170";
     protected static final String PERSON_WITH_RELATIONSHIPS = "118548018";
 
     @Autowired protected WebClient webClient;
@@ -47,7 +47,7 @@ public abstract class HtmlPageTests {
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testRoute(String baseUrl) throws IOException {
-        HtmlPage testPage = pageFor(baseUrl, COLOGNE);
+        HtmlPage testPage = pageFor(baseUrl, ALBERT);
         assertThat(testPage.getWebResponse().isSuccess());
         assertThat(testPage.getContentType()).isEqualTo(MediaType.TEXT_HTML_VALUE);
     }
@@ -74,7 +74,7 @@ public abstract class HtmlPageTests {
 
     private String urlWithPort(String baseUrl, String path) {
         String baseUrlWithPort = baseUrl + (baseUrl.contains("localhost") ? ":" + port : "");
-        return baseUrlWithPort + "/gnd" + (path.isEmpty() ? "" : "/" + path);
+        return baseUrlWithPort + (path.isEmpty() ? "" : "/" + path);
     }
 
     protected Condition<String> validJson() {

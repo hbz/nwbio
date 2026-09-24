@@ -20,7 +20,7 @@
         class="nav-link"
         th:classappend="${request.size == pageSize ? 'active' : ''}"
         th:aria-current="${request.size == pageSize ? 'page' : 'false'}"
-        th:href="@{/gnd/search(q=${q}, from=${from}, size=${size}, filter=${filter})}"
+        th:href="@{/search(q=${q}, from=${from}, size=${size}, filter=${filter})}"
         th:text="${size}"
         >10</a
     >
@@ -50,7 +50,7 @@
             <li class="page-item" th:classappend="${disablePrev ? 'disabled' : ''}">
                 <a
                     class="page-link"
-                    th:href="@{/gnd/search(q=${q}, size=${size}, from=${prevFrom}, filter=${filter})}"
+                    th:href="@{/search(q=${q}, size=${size}, from=${prevFrom}, filter=${filter})}"
                     >&larr;</a
                 >
             </li>
@@ -61,7 +61,7 @@
                 th:classappend="${currentPage == page ? 'active' : ''}">
                 <a
                     class="page-link"
-                    th:href="@{/gnd/search(q=${q}, size=${size}, from=${pageFrom}, filter=${filter})}"
+                    th:href="@{/search(q=${q}, size=${size}, from=${pageFrom}, filter=${filter})}"
                     th:text="${page}"
                     >1</a
                 >
@@ -69,7 +69,7 @@
             <li class="page-item" th:classappend="${disableNext ? 'disabled' : ''}">
                 <a
                     class="page-link"
-                    th:href="@{/gnd/search(q=${q}, size=${size}, from=${nextFrom}, filter=${filter})}"
+                    th:href="@{/search(q=${q}, size=${size}, from=${nextFrom}, filter=${filter})}"
                     >&rarr;</a
                 >
             </li>

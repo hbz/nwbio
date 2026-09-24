@@ -7,12 +7,12 @@
         <title>GND Reconciliation</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/x-icon" href="/gnd/assets/images/gnd.png" />
+        <link rel="icon" type="image/x-icon" href="/assets/images/gnd.png" />
         <link
             rel="stylesheet"
             th:if="${!request.isDevserver}"
-            th:href="@{/gnd/assets/css/bundle.css}" />
-        <script th:src="@{/gnd/assets/js/bundle.js}" defer></script>
+            th:href="@{/assets/css/bundle.css}" />
+        <script th:src="@{/assets/js/bundle.js}" defer></script>
     </head>
     <body>
         <div class="container">
@@ -22,13 +22,13 @@
                         <a href="/gnd">
                             <img
                                 id="small-logo"
-                                th:src="@{/gnd/assets/images/logo.png}"
+                                th:src="@{/assets/images/logo.png}"
                                 alt="lobid-gnd" />
                         </a>
                         <a href="https://gnd.network">
                             <img
                                 id="small-logo"
-                                th:src="@{/gnd/assets/images/gnd.png}"
+                                th:src="@{/assets/images/gnd.png}"
                                 alt="gnd.network" />
                         </a>
                         <button
@@ -75,11 +75,8 @@
             </nav>
 
             <div class="float-end">
-                <img th:src="@{/gnd/assets/images/gnd.png}" alt="GND Logo" height="85px" />
-                <img
-                    th:src="@{/gnd/assets/images/refine.png}"
-                    alt="OpenRefine Logo"
-                    height="100px" />
+                <img th:src="@{/assets/images/gnd.png}" alt="GND Logo" height="85px" />
+                <img th:src="@{/assets/images/refine.png}" alt="OpenRefine Logo" height="100px" />
             </div>
 
             <h1>GND Reconciliation</h1>
@@ -205,7 +202,7 @@
                     </small>
                 </dt>
                 <dd>
-                    <a th:href="@{/gnd/118624822(format='preview')}">/gnd/118624822.preview</a>
+                    <a th:href="@{/118624822(format='preview')}">/118624822.preview</a>
                 </dd>
                 <dt>
                     Entities: view
@@ -217,7 +214,7 @@
                     </small>
                 </dt>
                 <dd>
-                    <a th:href="@{/gnd/118624822}">/gnd/118624822</a>
+                    <a th:href="@{/118624822}">/118624822</a>
                 </dd>
             </dl>
 
@@ -236,9 +233,9 @@
                 <dd>
                     <a
                         th:with='sample=${&apos;{"q1":{"query":"Twain, Mark"}}&apos;}'
-                        th:href="@{/gnd/reconcile/(queries=${sample})}"
-                        th:text="|/gnd/reconcile/?queries=${sample}|">
-                        /gnd/reconcile/?queries={...}
+                        th:href="@{/reconcile/(queries=${sample})}"
+                        th:text="|/reconcile/?queries=${sample}|">
+                        /reconcile/?queries={...}
                     </a>
                 </dd>
                 <dt>Query: POST</dt>
@@ -263,38 +260,38 @@
             <dl>
                 <dt>Suggest: entity</dt>
                 <dd>
-                    <a th:href="@{/gnd/reconcile/suggest/entity(prefix='hbz')}">
-                        /gnd/reconcile/suggest/entity?prefix=hbz
+                    <a th:href="@{/reconcile/suggest/entity(prefix='hbz')}">
+                        /reconcile/suggest/entity?prefix=hbz
                     </a>
                 </dd>
                 <dt>Suggest: type</dt>
                 <dd>
-                    <a th:href="@{/gnd/reconcile/suggest/type(prefix='werk')}">
-                        /gnd/reconcile/suggest/type?prefix=werk
+                    <a th:href="@{/reconcile/suggest/type(prefix='werk')}">
+                        /reconcile/suggest/type?prefix=werk
                     </a>
                 </dd>
                 <dt>Suggest: property</dt>
                 <dd>
-                    <a th:href="@{/gnd/reconcile/suggest/property(prefix='beruf')}">
-                        /gnd/reconcile/suggest/property?prefix=beruf
+                    <a th:href="@{/reconcile/suggest/property(prefix='beruf')}">
+                        /reconcile/suggest/property?prefix=beruf
                     </a>
                 </dd>
                 <dt>Flyout: entity</dt>
                 <dd>
-                    <a th:href="@{/gnd/reconcile/flyout/entity(id='2047974-8')}">
-                        /gnd/reconcile/flyout/entity?id=2047974-8
+                    <a th:href="@{/reconcile/flyout/entity(id='2047974-8')}">
+                        /reconcile/flyout/entity?id=2047974-8
                     </a>
                 </dd>
                 <dt>Flyout: type</dt>
                 <dd>
-                    <a th:href="@{/gnd/reconcile/flyout/type(id='Work')}">
-                        /gnd/reconcile/flyout/type?id=Work
+                    <a th:href="@{/reconcile/flyout/type(id='Work')}">
+                        /reconcile/flyout/type?id=Work
                     </a>
                 </dd>
                 <dt>Flyout: property</dt>
                 <dd>
-                    <a th:href="@{/gnd/reconcile/flyout/property(id='professionOrOccupation')}">
-                        /gnd/reconcile/flyout/property?id=professionOrOccupation
+                    <a th:href="@{/reconcile/flyout/property(id='professionOrOccupation')}">
+                        /reconcile/flyout/property?id=professionOrOccupation
                     </a>
                 </dd>
             </dl>
@@ -312,8 +309,8 @@
                     </small>
                 </dt>
                 <dd>
-                    <a th:href="@{/gnd/reconcile/properties(type='Work')}">
-                        /gnd/reconcile/properties?type=Work
+                    <a th:href="@{/reconcile/properties(type='Work')}">
+                        /reconcile/properties?type=Work
                     </a>
                 </dd>
                 <dt>
@@ -328,9 +325,9 @@
                 <dd>
                     <a
                         th:with='sample=${&apos;{"ids":["1081942517","4791358-7"],"properties":[{"id":"preferredName"},{"id":"firstAuthor"}]}&apos;}'
-                        th:href="@{/gnd/reconcile/(extend=${sample})}"
-                        th:text="|/gnd/reconcile/?extend=${sample}|">
-                        /gnd/reconcile/?extend={...}
+                        th:href="@{/reconcile/(extend=${sample})}"
+                        th:text="|/reconcile/?extend=${sample}|">
+                        /reconcile/?extend={...}
                     </a>
                 </dd>
                 <dt>Extend: POST</dt>
@@ -348,13 +345,13 @@
                     <span class="float-start">
                         <a href="https://gnd.network">
                             <img
-                                th:src="@{/gnd/assets/images/gnd.png}"
+                                th:src="@{/assets/images/gnd.png}"
                                 alt="GND-Logo"
                                 id="small-logo" />
                         </a>
                         <a href="https://www.hbz-nrw.de">
                             <img
-                                th:src="@{/gnd/assets/images/hbz.svg}"
+                                th:src="@{/assets/images/hbz.svg}"
                                 alt="hbz-Logo"
                                 id="small-logo" />
                         </a>

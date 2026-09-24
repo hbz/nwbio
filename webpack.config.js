@@ -11,7 +11,7 @@ module.exports = (env, argv) => ({
     output: {
         path: path.resolve(__dirname, "./build/resources/main/static"),
         filename: "js/[name].js",
-        publicPath: "/gnd/assets/",
+        publicPath: "/assets/",
     },
     devtool: argv.mode === "production" ? false : "eval-source-map",
     performance: {

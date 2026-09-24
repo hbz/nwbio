@@ -27,7 +27,7 @@
             </div>
 
             <h2 id="search">
-                Suche: <code>/gnd/search?q=text</code>
+                Suche: <code>/search?q=text</code>
                 <small
                     ><a href="#search"><span class="glyphicon glyphicon-link"></span></a
                 ></small>
@@ -37,70 +37,70 @@
                 <dt>Alles</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='*', format='json')}"
+                        th:with="url=@{/search(q='*', format='json')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>Alle Felder</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='london', format='json')}"
+                        th:with="url=@{/search(q='london', format='json')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>Feldsuche</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='preferredName:Twain', format='json')}"
+                        th:with="url=@{/search(q='preferredName:Twain', format='json')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>Filter</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='preferredName:Twain', filter='type:Person', format='json')}"
+                        th:with="url=@{/search(q='preferredName:Twain', filter='type:Person', format='json')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>Paginierung</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='london', from='50', size='100', format='json')}"
+                        th:with="url=@{/search(q='london', from='50', size='100', format='json')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>Sortierung</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='scholl', sort='preferredName.keyword:asc', format='json')}"
+                        th:with="url=@{/search(q='scholl', sort='preferredName.keyword:asc', format='json')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>ASCII</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='preferredName.ascii:Chor OR variantName.ascii:Chor', format='json')}"
+                        th:with="url=@{/search(q='preferredName.ascii:Chor OR variantName.ascii:Chor', format='json')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
             </dl>
 
             <h2 id="direct-access">
-                Direktzugriff: <code>/gnd/&lt;id&gt;.json</code>
+                Direktzugriff: <code>/&lt;id&gt;.json</code>
                 <small
                     ><a href="#direct-access"><span class="glyphicon glyphicon-link"></span></a
                 ></small>
@@ -109,21 +109,15 @@
             <dl>
                 <dt>London</dt>
                 <dd>
-                    <a th:with="url=@{/gnd/4074335-4.json}" th:href="${url}" th:text="${url}"
-                        >/gnd/...</a
-                    >
+                    <a th:with="url=@{/4074335-4.json}" th:href="${url}" th:text="${url}">/...</a>
                 </dd>
                 <dt>hbz</dt>
                 <dd>
-                    <a th:with="url=@{/gnd/2047974-8.json}" th:href="${url}" th:text="${url}"
-                        >/gnd/...</a
-                    >
+                    <a th:with="url=@{/2047974-8.json}" th:href="${url}" th:text="${url}">/...</a>
                 </dd>
                 <dt>Goethe</dt>
                 <dd>
-                    <a th:with="url=@{/gnd/118540238.json}" th:href="${url}" th:text="${url}"
-                        >/gnd/...</a
-                    >
+                    <a th:with="url=@{/118540238.json}" th:href="${url}" th:text="${url}">/...</a>
                 </dd>
             </dl>
 
@@ -136,7 +130,7 @@
 
             <p>Standardmäßig liefert dieser Dienst strukturierte API-Antworten (als JSON):</p>
 
-            <p><code>curl -L [[${baseUrl}]]/gnd/4074335-4</code></p>
+            <p><code>curl -L [[${baseUrl}]]/4074335-4</code></p>
 
             <p>
                 Er unterstützt Content-Negotiation über den Accept-Header für JSON
@@ -146,7 +140,7 @@
             <p>
                 <code
                     >curl -L --header "Accept: application/json"
-                    [[${baseUrl}]]/gnd/search?q=london</code
+                    [[${baseUrl}]]/search?q=london</code
                 >
             </p>
 
@@ -156,8 +150,8 @@
             </p>
 
             <p>
-                <a th:with="url=@{/gnd/4074335-4(format='json')}" th:href="${url}" th:text="${url}"
-                    >/gnd/...</a
+                <a th:with="url=@{/4074335-4(format='json')}" th:href="${url}" th:text="${url}"
+                    >/...</a
                 >
             </p>
 
@@ -167,9 +161,7 @@
             </p>
 
             <p>
-                <a th:with="url=@{/gnd/4074335-4.json}" th:href="${url}" th:text="${url}"
-                    >/gnd/...</a
-                >
+                <a th:with="url=@{/4074335-4.json}" th:href="${url}" th:text="${url}">/...</a>
             </p>
 
             <p>
@@ -192,7 +184,7 @@
             <p>
                 <code
                     >curl -L --header "Accept: application/x-jsonlines"
-                    "[[${baseUrl}]]/gnd/search?q=type:Country" &gt; countries.jsonl</code
+                    "[[${baseUrl}]]/search?q=type:Country" &gt; countries.jsonl</code
                 >
             </p>
 
@@ -201,8 +193,7 @@
             <p>
                 <code
                     >curl -L --header "Accept-Encoding: gzip"
-                    "[[${baseUrl}]]/gnd/search?q=type:Company&amp;format=jsonl" &gt;
-                    companies.gz</code
+                    "[[${baseUrl}]]/search?q=type:Company&amp;format=jsonl" &gt; companies.gz</code
                 >
             </p>
 
@@ -230,19 +221,19 @@
                 <dt>Standardformat für Vorschläge verwenden: "format=json:suggest"</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='Twain', format='json:suggest')}"
+                        th:with="url=@{/search(q='Twain', format='json:suggest')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>Bestimmtes Feld für Vorschläge verwenden: "format=json:preferredName"</dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='Twain', format='json:preferredName')}"
+                        th:with="url=@{/search(q='Twain', format='json:preferredName')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>
@@ -251,10 +242,10 @@
                 </dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q='Twain', format='json:preferredName,professionOrOccupation')}"
+                        th:with="url=@{/search(q='Twain', format='json:preferredName,professionOrOccupation')}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <dt>
@@ -264,11 +255,11 @@
                 </dt>
                 <dd>
                     <a
-                        th:with="url=@{/gnd/search(q=Twain, format='json:preferredName,*_dateOfBirth in_placeOfBirth,†_dateOfDeath in_placeOfDeath'
+                        th:with="url=@{/search(q=Twain, format='json:preferredName,*_dateOfBirth in_placeOfBirth,†_dateOfDeath in_placeOfDeath'
                         )}"
                         th:href="${url}"
                         th:text="${url}"
-                        >/gnd/search?...</a
+                        >/search?...</a
                     >
                 </dd>
                 <p>
@@ -285,7 +276,7 @@
                 Stelle des gewählten Labels die entsprechende ID verwendet werden kann:
             </p>
 
-            <form method="GET" class="form-inline mb-2" action="/gnd/search">
+            <form method="GET" class="form-inline mb-2" action="/search">
                 <input
                     type="text"
                     class="search-gnd"
@@ -328,9 +319,7 @@
             <dl>
                 <dt>JSON-LD Context</dt>
                 <dd>
-                    <a th:with="url=@{/gnd/context.jsonld}" th:href="${url}" th:text="${url}"
-                        >/gnd/...</a
-                    >
+                    <a th:with="url=@{/context.jsonld}" th:href="${url}" th:text="${url}">/...</a>
                 </dd>
                 <dt>RDF-Konvertierung</dt>
                 <dd>
@@ -339,7 +328,7 @@
                     <a href="https://github.com/digitalbazaar/jsonld-cli">jsonld-cli</a>:
                 </dd>
                 <dd>
-                    <code>jsonld format --n-quads [[${baseUrl}]]/gnd/4074335-4</code>
+                    <code>jsonld format --n-quads [[${baseUrl}]]/4074335-4</code>
                 </dd>
                 <dd>
                     Einzeltreffer können per <code>Accept</code> Header auch direkt als RDF/XML,
@@ -348,16 +337,16 @@
                 <dd>
                     <code
                         >curl -L --header "Accept: application/rdf+xml"
-                        [[${baseUrl}]]/gnd/4074335-4</code
+                        [[${baseUrl}]]/4074335-4</code
                     >
                 </dd>
                 <dd>
-                    <code>curl -L --header "Accept: text/turtle" [[${baseUrl}]]/gnd/4074335-4</code>
+                    <code>curl -L --header "Accept: text/turtle" [[${baseUrl}]]/4074335-4</code>
                 </dd>
                 <dd>
                     <code
                         >curl -L --header "Accept: application/n-triples"
-                        [[${baseUrl}]]/gnd/4074335-4</code
+                        [[${baseUrl}]]/4074335-4</code
                     >
                 </dd>
                 <dd>
@@ -365,19 +354,13 @@
                     Format-Parameter auch URLs mit Formatendungen unterstützt:
                 </dd>
                 <dd>
-                    <a th:with="url=@{/gnd/4074335-4.rdf}" th:href="${url}" th:text="${url}"
-                        >/gnd/...</a
-                    >
+                    <a th:with="url=@{/4074335-4.rdf}" th:href="${url}" th:text="${url}">/...</a>
                 </dd>
                 <dd>
-                    <a th:with="url=@{/gnd/4074335-4.ttl}" th:href="${url}" th:text="${url}"
-                        >/gnd/...</a
-                    >
+                    <a th:with="url=@{/4074335-4.ttl}" th:href="${url}" th:text="${url}">/...</a>
                 </dd>
                 <dd>
-                    <a th:with="url=@{/gnd/4074335-4.nt}" th:href="${url}" th:text="${url}"
-                        >/gnd/...</a
-                    >
+                    <a th:with="url=@{/4074335-4.nt}" th:href="${url}" th:text="${url}">/...</a>
                 </dd>
             </dl>
 

@@ -11,6 +11,7 @@ import org.htmlunit.html.HtmlAnchor;
 import org.htmlunit.html.HtmlCanvas;
 import org.htmlunit.html.HtmlDivision;
 import org.htmlunit.html.HtmlPage;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -20,51 +21,53 @@ public class DetailsTests extends HtmlPageTests {
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testDetailsViewFields(String baseUrl) throws IOException {
-        HtmlPage detailsPage = pageFor(baseUrl, COLOGNE);
-        assertThat(detailsPage.getTitleText()).isEqualTo("Köln");
+        HtmlPage detailsPage = pageFor(baseUrl, ALBERT);
+        assertThat(detailsPage.getTitleText()).isEqualTo("Albertus, Magnus, Heiliger");
         assertThat(detailsPage.asNormalizedText())
-                .contains("https://d-nb.info/gnd/4031483-2")
+                .contains("https://d-nb.info/gnd/118637649")
                 .contains("Köln")
-                .contains("CCAA")
-                .contains("Kolonie")
-                .contains("Kūlūniyā")
-                .contains("Nordrhein-Westfalen");
+                .contains("Albert, the Great")
+                .contains("Alberto, Magno")
+                .contains("Philosoph")
+                .contains("Alchemist");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testDetailsViewHeader(String baseUrl) throws IOException {
-        HtmlPage detailsPage = pageFor(baseUrl, COLOGNE);
+        HtmlPage detailsPage = pageFor(baseUrl, ALBERT);
         assertThat(detailsPage.getElementsByTagName("h1").getFirst().getTextContent())
                 .as("Main header of full page as XML: \n%s", detailsPage.asXml())
-                .contains("Köln")
-                .contains("Gebietskörperschaft oder Verwaltungseinheit")
-                .contains("Geografikum")
-                .contains("Hauptstadt des Regierungsbezirks Köln");
+                .contains("Albertus, Magnus, Heiliger")
+                .contains("Person")
+                .contains("Individualisierte Person")
+                .contains("1193–1280");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testDetailsViewLinks(String baseUrl) throws IOException {
-        assertThat(pageFor(baseUrl, COLOGNE).getElementsByTagName("a").toString())
-                .contains("TerritorialCorporateBodyOrAdministrativeUnit")
-                .contains("PlaceOrGeographicName")
-                .contains("4031483-2.json")
-                .contains("https://www.stadt-koeln.de/")
-                .contains("https://d-nb.info/standards/vocab/gnd/geographic-area-code#XA-DE-NW")
-                .contains("https://www.herder-institut.de/bildkatalog/gnd/4031483-2")
+        assertThat(pageFor(baseUrl, ALBERT).getElementsByTagName("a").toString())
+                .contains("Person")
+                .contains("DifferentiatedPerson")
+                .contains("118637649.json")
+                .contains("https://d-nb.info/standards/vocab/gnd/geographic-area-code#XA-DE")
+                .contains("http://viaf.org/viaf/316875564")
+                .contains("http://www.hls-dhs-dss.ch/textes/d/D12458.php")
                 .contains("https://www.dnb.de/lds")
-                .contains("https://d-nb.info/gnd/4031483-2/about/lds.rdf")
-                .contains("https://d-nb.info/gnd/4031483-2/about/lds.ttl")
+                .contains("https://d-nb.info/gnd/118637649/about/lds.rdf")
+                .contains("https://d-nb.info/gnd/118637649/about/lds.ttl")
                 .contains("https://www.dnb.de/entityfacts")
-                .contains("http://hub.culturegraph.org/entityfacts/4031483-2")
+                .contains("http://hub.culturegraph.org/entityfacts/118637649")
                 .contains("https://creativecommons.org/publicdomain/zero/1.0/");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
+    @Disabled // enable for AP4, see
+    // https://service-wiki.hbz-nrw.de/spaces/SEM/pages/1227915278/Biographisches+Portal+NRW+NWBio
     public void testDetailsViewMap(String baseUrl) throws IOException {
-        List<DomElement> mapElements = pageFor(baseUrl, COLOGNE).getElementsById("authority-map");
+        List<DomElement> mapElements = pageFor(baseUrl, ALBERT).getElementsById("authority-map");
         assertThat(mapElements).isNotEmpty();
         assertThat(mapElements.getFirst().getElementsByTagName("a").toString())
                 .containsPattern("https?://leafletjs.com")
@@ -74,8 +77,8 @@ public class DetailsTests extends HtmlPageTests {
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testDetailsViewImage(String baseUrl) throws IOException {
-        HtmlPage detailsPage = pageFor(baseUrl, COLOGNE);
-        assertThat(detailsPage.getByXPath("//img[@alt='Köln']")).isNotEmpty();
+        HtmlPage detailsPage = pageFor(baseUrl, ALBERT);
+        assertThat(detailsPage.getByXPath("//img[@alt='Albertus, Magnus, Heiliger']")).isNotEmpty();
         assertThat(detailsPage.getBody().asNormalizedText())
                 .contains("Bildquelle")
                 .contains("Wikimedia Commons")
