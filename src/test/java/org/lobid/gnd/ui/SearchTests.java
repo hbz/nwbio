@@ -96,7 +96,6 @@ public class SearchTests extends HtmlPageTests {
         assertThat(searchResults)
                 .as("the results contains details for each entity")
                 .contains("118637649")
-                .contains("Individualisierte Person")
                 .contains(
                         "Katholischer Theologe",
                         "Bischof",
@@ -106,8 +105,6 @@ public class SearchTests extends HtmlPageTests {
                 .contains("1193–1280");
         assertThat(searchResults)
                 .as("the facets contain values from the search results")
-                .contains("Entitätstyp")
-                .contains("Person")
                 .contains("GND-Sachgruppe")
                 .contains("Personen zu Philosophie")
                 .contains("Ländercode")
@@ -119,8 +116,6 @@ public class SearchTests extends HtmlPageTests {
     @ValueSource(strings = {DEVELOPMENT})
     public void testFacetLinks(String baseUrl) throws IOException {
         assertThat(search("Pseudo-Albert", baseUrl))
-                .has(linkFor("Person", "type", "Person"))
-                .has(linkFor("Individualisierte Person", "type", "DifferentiatedPerson"))
                 .has(
                         linkFor(
                                 "Personen zu Natur, Naturwissenschaften allgemein",

@@ -3,7 +3,6 @@
         <th />
         <th id="name-column" />
         <th />
-        <th />
         <th id="id-column" />
     </tr>
     <tr th:each="member,meta : ${search.member}">
@@ -15,7 +14,6 @@
                 Name...
             </a>
         </td>
-        <td th:text="${suggest.array[meta.index].category}">Type...</td>
         <td th:text="${#strings.substringAfter(suggest.array[meta.index].label,'| ')}">
             Details...
         </td>
