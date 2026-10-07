@@ -46,8 +46,8 @@
                             th:if="${collection.containsKey('icon')}"
                             th:with="
                                 proxyPrefix='https://lobid.org/imagesproxy?url=',
-                                isLobid=${#strings.contains(collection.icon, 'lobid.org')}"
-                            th:src="${isLobid ? collection.icon : proxyPrefix + collection.icon}"
+                                isNWBio=${#strings.contains(collection.icon, 'biographie.nrw')}"
+                            th:src="${isNWBio ? collection.icon : proxyPrefix + collection.icon}"
                             style="height: 1em"
                             alt="&#128443;" />
                         <a
