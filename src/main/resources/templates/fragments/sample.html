@@ -3,7 +3,7 @@
         $("input.search-gnd").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/gnd/search",
+                    url: "/search",
                     dataType: "jsonp",
                     data: {
                         q: request.term,

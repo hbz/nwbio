@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-/* Tests for the `/gnd/dataset` documentation page */
+/* Tests for the `/dataset` documentation page */
 public class DatasetDocTests extends HtmlPageTests {
 
     private static final String DATASET_DOC = "/dataset";

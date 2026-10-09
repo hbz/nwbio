@@ -3,7 +3,6 @@
         <th />
         <th id="name-column" />
         <th />
-        <th />
         <th id="id-column" />
     </tr>
     <tr th:each="member,meta : ${search.member}">
@@ -11,11 +10,10 @@
             <i th:class="${@icons.iconClass(member.type)}" />
         </td>
         <td>
-            <a th:text="${member.preferredName}" th:href="@{'/gnd/' + ${member.gndIdentifier}}">
+            <a th:text="${member.preferredName}" th:href="@{'/' + ${member.gndIdentifier}}">
                 Name...
             </a>
         </td>
-        <td th:text="${suggest.array[meta.index].category}">Type...</td>
         <td th:text="${#strings.substringAfter(suggest.array[meta.index].label,'| ')}">
             Details...
         </td>

@@ -20,7 +20,7 @@ To start the local server, run:
 ./gradlew bootRun
 ```
 
-The server should be running at http://localhost:8080/gnd.
+The server should be running at http://localhost:8080.
 
 ## Run checks
 
@@ -44,7 +44,7 @@ For backend hot-deployment, in a separate terminal, run:
 ./gradlew --continuous bootJar
 ```
 
-With this, changes to the Java backend code are visible at http://localhost:8080/gnd *after* a browser reload.
+With this, changes to the Java backend code are visible at http://localhost:8080 *after* a browser reload.
 
 ## Frontend development
 
@@ -94,7 +94,7 @@ For debugging etc. start the application manually:
 java -Dspring.profiles.active=production -jar ./build/libs/nwbio-0.0.1-SNAPSHOT.jar
 ```
 
-The server should be running at http://localhost:8080/gnd.
+The server should be running at http://localhost:8080.
 
 ## Reference manuals
 

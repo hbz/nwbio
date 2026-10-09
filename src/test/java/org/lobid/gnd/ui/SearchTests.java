@@ -15,7 +15,7 @@ import org.htmlunit.html.HtmlPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-/* Tests for the `/gnd/search` results page */
+/* Tests for the `/search` results page */
 public class SearchTests extends HtmlPageTests {
 
     private static final String SEARCH = "/search";
@@ -64,7 +64,7 @@ public class SearchTests extends HtmlPageTests {
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testPageLinks(String baseUrl) throws IOException {
-        assertThat(search("Test", baseUrl))
+        assertThat(search("NRW", baseUrl))
                 .as("specific page can be selected, default is 1")
                 .is(linkActive("1"))
                 .is(linkActiveAfterClick("2"))
@@ -81,85 +81,80 @@ public class SearchTests extends HtmlPageTests {
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testSearchResults(String baseUrl) throws IOException {
-        HtmlPage searchPage = search("Make-Tuwen", baseUrl);
-        DomAttr detailsLink = searchPage.getFirstByXPath("//a[text()='Twain, Mark']/@href");
+        HtmlPage searchPage = search("Pseudo-Albert", baseUrl);
+        DomAttr detailsLink =
+                searchPage.getFirstByXPath("//a[text()='Albertus, Magnus, Heiliger']/@href");
         assertThat(detailsLink.getValue())
                 .as("each result should link to its details page")
-                .contains("gnd/118624822");
+                .contains("/118637649");
         String searchResults = searchPage.asNormalizedText();
         assertThat(searchResults)
                 .as("the search has main navigation, results, and facets")
                 .contains("Treffer pro Seite")
-                .contains("1 Treffer, zeige 1 bis 1")
+                .contains("Treffer, zeige 1 bis")
                 .contains("Ergebnisse eingrenzen");
         assertThat(searchResults)
                 .as("the results contains details for each entity")
-                .contains("Twain, Mark")
-                .contains("Individualisierte Person")
-                .contains("Schriftsteller", "Journalist", "Drucker", "Lotse", "Soldat")
-                .contains("1835–1910")
-                .contains("118624822");
+                .contains("118637649")
+                .contains(
+                        "Katholischer Theologe",
+                        "Bischof",
+                        "Philosoph",
+                        "Alchemist",
+                        "Naturwissenschaftler")
+                .contains("1193–1280");
         assertThat(searchResults)
                 .as("the facets contain values from the search results")
-                .contains("Entitätstyp")
-                .contains("Person")
                 .contains("GND-Sachgruppe")
-                .contains("Personen zu Literaturgeschichte (Schriftsteller)")
+                .contains("Personen zu Philosophie")
                 .contains("Ländercode")
-                .contains("USA")
+                .contains("Deutschland")
                 .contains("Beruf oder Beschäftigung");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testFacetLinks(String baseUrl) throws IOException {
-        assertThat(search("Make-Tuwen", baseUrl))
-                .has(linkFor("Person", "type", "Person"))
-                .has(linkFor("Individualisierte Person", "type", "DifferentiatedPerson"))
+        assertThat(search("Pseudo-Albert", baseUrl))
                 .has(
                         linkFor(
-                                "Personen zu Literaturgeschichte",
+                                "Personen zu Natur, Naturwissenschaften allgemein",
                                 "gndSubjectCategory.id",
-                                "\"https://d-nb.info/standards/vocab/gnd/gnd-sc#12.2p\""))
+                                "\"https://d-nb.info/standards/vocab/gnd/gnd-sc#18p\""))
                 .has(
                         linkFor(
-                                "USA",
+                                "Deutschland",
                                 "geographicAreaCode.id",
-                                "\"https://d-nb.info/standards/vocab/gnd/geographic-area-code#XD-US\""))
+                                "\"https://d-nb.info/standards/vocab/gnd/geographic-area-code#XA-DE\""))
                 .has(
                         linkFor(
-                                "Drucker",
+                                "Katholischer Theologe",
                                 "professionOrOccupation.id",
-                                "\"https://d-nb.info/gnd/4013091-5\""))
+                                "\"https://d-nb.info/gnd/4030020-1\""))
                 .has(
                         linkFor(
-                                "Journalist",
+                                "Alchemist",
                                 "professionOrOccupation.id",
-                                "\"https://d-nb.info/gnd/4028781-6\""))
+                                "\"https://d-nb.info/gnd/4212680-0\""))
                 .has(
                         linkFor(
-                                "Lotse",
+                                "Naturwissenschaftler",
                                 "professionOrOccupation.id",
-                                "\"https://d-nb.info/gnd/4036380-6\""))
-                .has(
-                        linkFor(
-                                "Soldat",
-                                "professionOrOccupation.id",
-                                "\"https://d-nb.info/gnd/4055409-0\""));
+                                "\"https://d-nb.info/gnd/4041423-1\""));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testFacetFilter(String baseUrl) throws IOException {
-        HtmlPage searchPage = search("Make-Tuwen", baseUrl);
+        HtmlPage searchPage = search("Pseudo-Albert", baseUrl);
         assertThat(searchPage.getByXPath(linksToRemoveFilter()))
                 .as("no filter should be set by default")
                 .isEmpty();
         searchPage = addAndAssertFilters(searchPage, "Person", 1);
-        searchPage = addAndAssertFilters(searchPage, "Literaturgeschichte", 2);
-        searchPage = addAndAssertFilters(searchPage, "USA", 3);
-        searchPage = addAndAssertFilters(searchPage, "Lotse", 4);
-        searchPage = addAndAssertFilters(searchPage, "Drucker", 5);
+        searchPage = addAndAssertFilters(searchPage, "Philosophie", 2);
+        searchPage = addAndAssertFilters(searchPage, "Deutschland", 3);
+        searchPage = addAndAssertFilters(searchPage, "Philosoph", 4);
+        searchPage = addAndAssertFilters(searchPage, "Naturwissenschaftler", 5);
         clickAndAssertFilters(searchPage, linksToRemoveFilter(), "remove", 4);
     }
 
@@ -170,21 +165,21 @@ public class SearchTests extends HtmlPageTests {
         webClient.getOptions().setCssEnabled(false);
 
         HtmlInput searchBox = searchPage.getFirstByXPath("//input[@id='gnd-query']");
-        searchBox.type("Make-Tuwen");
+        searchBox.type("Pseudo-Albert");
         webClient.waitForBackgroundJavaScript(1500);
         HtmlListItem suggestion =
                 searchPage.getFirstByXPath("//ul[contains(@class, 'ui-autocomplete')]/li");
         assertThat(suggestion.asNormalizedText())
                 .as("suggestion should contain details")
-                .contains("Twain, Mark | 1835–1910")
-                .contains("Schriftsteller; Journalist; Drucker; Lotse; Soldat");
+                .contains("Albertus, Magnus, Heiliger | 1193–1280")
+                .contains("Philosoph; Alchemist; Naturwissenschaftler");
 
         HtmlPage detailsPage = suggestion.click();
         webClient.waitForBackgroundJavaScript(15);
         assertThat(detailsPage.asNormalizedText())
                 .as("details page for selected suggestion should be open: " + detailsPage.getUrl())
-                .contains("https://d-nb.info/gnd/118624822")
-                .contains("Snodgrass, Quintus Curtius");
+                .contains("https://d-nb.info/gnd/118637649")
+                .contains("Albertus, de Colonia");
     }
 
     private HtmlPage search(String searchQuery, String baseUrl) throws IOException {

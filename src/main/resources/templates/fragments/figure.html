@@ -1,9 +1,9 @@
 <figure xmlns:th="http://www.thymeleaf.org">
-    <a th:href="@{'/gnd/' + ${entity.gndIdentifier}}">
+    <a th:href="@{'/' + ${entity.gndIdentifier}}">
         <img id="entity-image" th:src="@{${entity.imageUrl}}" th:alt="${entity.preferredName}" />
     </a>
     <figcaption>
-        <a th:href="@{'/gnd/' + ${entity.gndIdentifier}}" th:text="${entity.preferredName}">
+        <a th:href="@{'/' + ${entity.gndIdentifier}}" th:text="${entity.preferredName}">
             An entity
         </a>
         <br />

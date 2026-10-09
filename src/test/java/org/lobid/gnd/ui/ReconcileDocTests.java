@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-/* Tests for the `/gnd/reconcile` documentation page */
+/* Tests for the `/reconcile` documentation page */
 public class ReconcileDocTests extends HtmlPageTests {
 
     private static final String RECONCILE_DOC = "/reconcile";
@@ -46,9 +46,9 @@ public class ReconcileDocTests extends HtmlPageTests {
         assertThat(pageFor(baseUrl, RECONCILE_DOC).asNormalizedText())
                 .contains("View-API")
                 .contains("Entities: view")
-                .contains("/gnd/118624822")
+                .contains("/118624822")
                 .contains("Entities: preview")
-                .contains("/gnd/118624822.preview");
+                .contains("/118624822.preview");
     }
 
     @ParameterizedTest
@@ -83,9 +83,9 @@ public class ReconcileDocTests extends HtmlPageTests {
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testSuggestTypeEndpoint(String baseUrl) throws IOException, InterruptedException {
-        assertThat(fetchHttpResponse(baseUrl, "reconcile/suggest/type?prefix=werk"))
+        assertThat(fetchHttpResponse(baseUrl, "reconcile/suggest/type?prefix=fam"))
                 .is(validJson())
-                .contains("Werk der Musik");
+                .contains("Familie");
     }
 
     @ParameterizedTest
@@ -110,8 +110,8 @@ public class ReconcileDocTests extends HtmlPageTests {
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testFlyoutEntityEndpoint(String baseUrl) throws IOException, InterruptedException {
-        assertThat(fetchHttpResponse(baseUrl, "reconcile/flyout/entity?id=2047974-8"))
-                .contains("Hochschulbibliothekszentrum");
+        assertThat(fetchHttpResponse(baseUrl, "reconcile/flyout/entity?id=" + ALBERT))
+                .contains("Albertus");
     }
 
     @ParameterizedTest
