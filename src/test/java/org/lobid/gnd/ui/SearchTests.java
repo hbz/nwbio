@@ -123,7 +123,7 @@ public class SearchTests extends HtmlPageTests {
                                 "\"https://d-nb.info/standards/vocab/gnd/gnd-sc#18p\""))
                 .has(
                         linkFor(
-                                "Deutschland",
+                                "Deutschland (",
                                 "geographicAreaCode.id",
                                 "\"https://d-nb.info/standards/vocab/gnd/geographic-area-code#XA-DE\""))
                 .has(
@@ -152,7 +152,7 @@ public class SearchTests extends HtmlPageTests {
                 .isEmpty();
         searchPage = addAndAssertFilters(searchPage, "Person", 1);
         searchPage = addAndAssertFilters(searchPage, "Philosophie", 2);
-        searchPage = addAndAssertFilters(searchPage, "Deutschland", 3);
+        searchPage = addAndAssertFilters(searchPage, "Deutschland (", 3);
         searchPage = addAndAssertFilters(searchPage, "Philosoph", 4);
         searchPage = addAndAssertFilters(searchPage, "Naturwissenschaftler", 5);
         clickAndAssertFilters(searchPage, linksToRemoveFilter(), "remove", 4);

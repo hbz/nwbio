@@ -63,16 +63,68 @@
                                     >Erkunden</a
                                 >
                             </li>
-                            <li class="navbar-item">
-                                <a
-                                    th:href="@{/api}"
-                                    class="nav-link"
-                                    title="Programmierschnittstelle"
-                                    th:classappend="${request.path == '/api'} ? 'active' : ''"
-                                    >API</a
-                                >
-                            </li>
                         </ul>
+                        <div class="dropdown">
+                            <a
+                                class="btn dropdown-toggle"
+                                href="#"
+                                role="button"
+                                id="dropdownMenuLink"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Ergänzende Suche
+                            </a>
+
+                            <ul
+                                class="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="dropdownMenuLink">
+                                <li class="dropdown-header">Regionale Biographien</li>
+                                <li class="dropdown-item">
+                                    <a
+                                        href="https://www.blb-karlsruhe.de/recherche/baden-wuerttemberg/personendatenbank-der-landesbibliographie/">
+                                        Baden-Württemberg
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="https://www.hamburgwissen-digital.de/personen.html">
+                                        Hamburg
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="https://www.lagis-hessen.de/and">Hessen</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="https://personen.niedersaechsische-bibliographie.de/">
+                                        Niedersachsen
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="https://rppd.lobid.org/">Rheinland-Pfalz</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="https://saebi.isgv.de/suche/">Sachsen</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a
+                                        href="https://www.lwl.org/westfaelische-geschichte/portal/Internet/dokumentation/personen/suche_personen/haupt.php?urlNeu=">
+                                        Westfalen
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="https://www.deutsche-biographie.de/">Deutschland</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-header">Sonstige</li>
+                                <li class="dropdown-item">
+                                    <a href="http://nwbib.de/">NRW-Bibliographie (NWBib)</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="http://kvk.bibliothek.kit.edu/vdl/">
+                                        Virtuelle Dt. Landesbibliographie (VDL)
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="dropdown ms-auto">
                             <a
                                 class="btn dropdown-toggle"
@@ -80,54 +132,56 @@
                                 role="button"
                                 id="dropdownMenuLink"
                                 data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                th:classappend="${request.path == '/dataset'} ? 'active' : ''">
+                                aria-expanded="false">
                                 <i class="bi bi-info-circle"></i>
                             </a>
 
                             <ul
                                 class="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="dropdownMenuLink">
-                                <li class="dropdown-header">Dokumentation</li>
                                 <li class="dropdown-item">
                                     <a
-                                        th:href="@{/dataset}"
-                                        class="nav-link"
-                                        th:classappend="${request.path == '/dataset'} ? 'active' : ''"
-                                        >Datenbeschreibung</a
-                                    >
+                                        href="https://www.ulb.uni-muenster.de/landesbibliothek/recherche/biographie/index.html">
+                                        Biographisches Portal NRW
+                                    </a>
                                 </li>
                                 <li class="dropdown-item">
                                     <a
-                                        th:href="@{http://blog.lobid.org/2018/07/04/lobid-gnd-suche.html}"
-                                        target="_blank"
-                                        >Suche und Navigation</a
-                                    >
-                                </li>
-                                <li class="dropdown-item">
-                                    <a
-                                        th:href="@{http://blog.lobid.org/2018/07/06/lobid-gnd-queries.html}"
-                                        target="_blank"
-                                        >Formulierung komplexer Suchanfragen</a
-                                    >
-                                </li>
-                                <li class="dropdown-item">
-                                    <a th:href="@{/reconcile}" class="nav-link" target="_blank"
-                                        >Integration in OpenRefine</a
-                                    >
-                                </li>
-                                <li class="dropdown-item">
-                                    <a th:href="@{http://lobid.org/usage-policy}" target="_blank"
-                                        >Richtlinien API-Nutzung</a
-                                    >
+                                        th:href="@{'mailto:lobid-admin@hbz-nrw.de?subject=Feedback%20zum%20Biographischen%20Portal%20NRW,%20aktuelle%20Seite:%20' + ${request.path}}">
+                                        Feedback zur aktuellen Seite
+                                    </a>
                                 </li>
                                 <li class="dropdown-divider"></li>
-                                <li class="dropdown-header">Kontakt</li>
+                                <li class="dropdown-header">Fachliche Kontakte</li>
                                 <li class="dropdown-item">
                                     <a
-                                        th:href="@{'mailto:lobid-admin@hbz-nrw.de?subject=Feedback%20zu%20nwbio,%20aktuelle%20Seite%20' + ${request.path}}"
-                                        >Feedback zur aktuellen Seite</a
-                                    >
+                                        href="http://www.ulb.uni-muenster.de/landesbibliothek/profil/ansprechpartner/index.html">
+                                        ULB Münster
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="https://www.ulb.hhu.de/sammlungen/landesbibliothek">
+                                        ULB Düsseldorf
+                                    </a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-header">Technische Informationen</li>
+                                <li class="dropdown-item">
+                                    <a href="https://lobid.org/team">Kontakt</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="https://github.com/hbz/nwbio">Daten und Software</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-header">Rechtliche Informationen</li>
+                                <li class="dropdown-item">
+                                    <a href="http://www.hbz-nrw.de/impressum/">Impressum</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a
+                                        href="https://github.com/hbz/nwbib/blob/master/conf/Datenschutzerklaerung_NWBib.textile">
+                                        Datenschutz
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -184,36 +238,43 @@
                     [[${MSG_ERROR}]]
                 </p>
                 <div layout:fragment="content" />
-                <div class="card my-3 footer-card">
-                    <div class="card-body footer">
-                        <span class="float-start">
-                            <img th:src="@{/assets/images/wappen.png}" alt="NRW-Wappen" />
-                            &nbsp; [[#{app.title}]] | ein Entwicklungsprojekt von
+                <div class="card my-3 mb-0 footer-card">
+                    <div class="card-body footer text-center">
+                        <span>
+                            Ein Entwicklungsprojekt von
                             <a th:href="@{https://landesbibliotheken.nrw}">
                                 landesbibliotheken.nrw
                             </a>
                             &
-                            <a th:href="@{https://www.hbz-nrw.de}">hbz-nrw</a>
-                        </span>
-                        <span class="float-end">
-                            <a th:href="@{http://lobid.org/warranty}">Gewährleistung</a> |
-                            <a th:href="@{http://www.hbz-nrw.de/impressum}">Impressum</a> |
-                            <a
-                                th:href="@{https://github.com/hbz/lobid/blob/master/conf/Datenschutzerklaerung_lobid.textile}"
-                                >Datenschutz</a
-                            >
-                            |
-                            <a th:href="@{https://openbiblio.social/@lobid}"
-                                ><i class="bi bi-mastodon"></i> Mastodon</a
-                            >&nbsp;
-                            <a th:href="@{http://github.com/hbz/nwbio}"
-                                ><i class="bi bi-github"></i> GitHub</a
-                            >&nbsp;
-                            <a th:href="@{http://blog.lobid.org}"
-                                ><i class="bi bi-pencil-fill"></i> Blog</a
-                            >
+                            <a th:href="@{https://www.hbz-nrw.de}">hbz-nrw</a> <br />
+                            Das
+                            <a href="https://biographie-nrw.uni-muenster.de/">
+                                Biographische Portal NRW
+                            </a>
+                            wird in diesem Projekt auf Basis von lobid-gnd neu umgesetzt
                         </span>
                     </div>
+                </div>
+                <div class="logos">
+                    <p class="h6" style="margin-top: 10px">
+                        <strong>
+                            <a
+                                target="_blank"
+                                style="color: inherit; text-decoration: inherit"
+                                href="https://www.landesbibliotheken.nrw">
+                                Landesbibliotheken.<span style="color: #109039">N</span
+                                ><span style="color: #bdbcbc">R</span
+                                ><span style="color: #e00a1d">W</span>
+                            </a>
+                        </strong>
+                    </p>
+                    &nbsp;&nbsp;&nbsp;
+                    <a target="_blank" href="https://www.hbz-nrw.de">
+                        <img
+                            class="media-object hbz-logo"
+                            th:src="@{/assets/images/hbz.svg}"
+                            alt="hbz-Logo" />
+                    </a>
                 </div>
             </div>
         </main>

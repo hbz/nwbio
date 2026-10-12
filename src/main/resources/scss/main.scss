@@ -145,11 +145,11 @@ a.active {
 .footer-card {
     margin-top: 35px !important;
     padding: 10px;
-    border-color: #434553;
+    border-color: #ddd;
 }
 
 .footer {
-    padding: 8px;
+    padding: 0px;
 }
 
 .footer img {
@@ -409,4 +409,14 @@ textarea {
 
 #footer-gnd a {
     color: white;
+}
+
+.logos {
+    display: flex;
+    justify-content: center;
+}
+
+.hbz-logo {
+    height: 40px;
+    padding: 10px 0px 10px 0px;
 }

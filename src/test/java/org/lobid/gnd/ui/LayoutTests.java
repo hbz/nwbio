@@ -20,13 +20,9 @@ public class LayoutTests extends HtmlPageTests {
         assertThat(testPage.asNormalizedText())
                 .contains("gnd")
                 .contains("Erkunden")
-                .contains("API")
-                .contains("hbz")
-                .contains("Gewährleistung")
-                .contains("Impressum")
-                .contains("Datenschutz")
-                .contains("GitHub")
-                .contains("Blog");
+                .contains("Ergänzende Suche")
+                .contains("Landesbibliotheken")
+                .contains("hbz");
     }
 
     @ParameterizedTest
@@ -42,16 +38,8 @@ public class LayoutTests extends HtmlPageTests {
     public void testLayoutLinks(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, "").getElementsByTagName("a").toString())
                 .contains("/search")
-                .contains("/api")
-                .contains("/dataset")
-                .contains("/reconcile")
                 .contains("https://www.hbz-nrw.de")
-                .contains("http://lobid.org/warranty")
-                .contains("http://www.hbz-nrw.de/impressum")
-                .contains("https://github.com/hbz/lobid/blob/master/conf/Datenschutzerklaerung")
-                .contains("https://openbiblio.social/@lobid")
-                .contains("http://github.com/hbz/nwbio")
-                .contains("http://blog.lobid.org/");
+                .contains("https://www.landesbibliotheken.nrw");
     }
 
     @ParameterizedTest
