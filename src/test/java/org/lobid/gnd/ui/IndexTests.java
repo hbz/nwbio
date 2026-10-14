@@ -16,17 +16,18 @@ public class IndexTests extends HtmlPageTests {
     public void testIndexContent(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, "").asNormalizedText())
                 .contains("Entwicklungsprojekt")
-                .contains("Die Gemeinsame Normdatei (GND) enthält über 8 Millionen Normdatensätze")
-                .contains("Die GND enthält normierte Einträge für Personen, Körperschaften")
-                .contains("lobid-gnd bietet eine Rechercheoberfläche zum Durchsuchen der GND");
+                .contains("Biographisches Portal NRW")
+                .contains("Der Mensch in seiner Region")
+                .contains(
+                        "Das Portal bündelt biographische Informationen über Nordrhein-Westfalen.");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
     public void testIndexLinks(String baseUrl) throws IOException {
         assertThat(pageFor(baseUrl, "").getElementsByTagName("a").toString())
-                .contains("https://www.dnb.de/lds#doc58246bodyText1")
-                .contains("https://www.dnb.de/entityfacts");
+                .contains("https://www.landesbibliotheken.nrw")
+                .contains("https://www.hbz-nrw.de");
     }
 
     @ParameterizedTest
@@ -34,7 +35,7 @@ public class IndexTests extends HtmlPageTests {
     public void testIndexImages(String baseUrl) throws IOException {
         HtmlPage indexPage = pageFor(baseUrl, "");
         assertThat(indexPage.getElementsByTagName("img").toString())
-                .contains("nrw.png")
+                .contains("wappen.png")
                 .contains("https://commons.wikimedia.org/wiki/Special:FilePath");
         HtmlFigureCaption figcaption = indexPage.getFirstByXPath("//figcaption");
         assertThat(figcaption.getTextContent())

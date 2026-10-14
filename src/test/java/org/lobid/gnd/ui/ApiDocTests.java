@@ -375,7 +375,7 @@ public class ApiDocTests extends HtmlPageTests {
                 .contains("http://json-ld.org/playground/")
                 .contains("https://github.com/digitalbazaar/jsonld-cli")
                 .contains("/reconcile")
-                .contains("http://lobid.org/usage-policy")
+                .contains("https://lobid.org/usage-policy")
                 .contains("http://blog.lobid.org");
     }
 }
