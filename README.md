@@ -80,7 +80,9 @@ sudo systemctl start|stop|restart|status nwbio
 
 ## Production setup
 
-Initial service setup (required only once):
+First, create a dedicated user for the service in advance and change the default user in `nwbio.service` file.
+
+Then, initially set up the service (required only once):
 
 ```
 sudo ln -sr build/libs/nwbio-0.0.1-SNAPSHOT.jar /opt/nwbio.jar
