@@ -188,34 +188,9 @@
                     </div>
                 </div>
             </nav>
-            <form action="#" th:action="@{/search}" method="GET" id="search-form">
-                <div class="input-group my-2" id="search-simple">
-                    <input
-                        autofocus=""
-                        type="text"
-                        name="q"
-                        id="gnd-query"
-                        th:value="${request.q}"
-                        class="form-control"
-                        autocomplete="off"
-                        placeholder='Suchoptionen: AND, OR, AND NOT, ""-Phrasensuche, *-Trunkierung'
-                        title="Suchanfrage" />
-                    <input type="hidden" name="from" th:value="0" />
-                    <input type="hidden" name="size" th:value="${request.size}" />
-                    <button
-                        type="button"
-                        class="btn btn-default ui-autocomplete-clear"
-                        title="Suchtext löschen">
-                        <i class="bi bi-x-circle"></i>
-                    </button>
-                    <button class="btn btn-default" type="submit" title="Suchen">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-            </form>
         </div>
 
-        <main class="my-4">
+        <main class="my-2">
             <div class="container">
                 <div class="alert alert-warning text-center" role="alert">
                     <span class="lead">
@@ -237,6 +212,43 @@
                 <p th:if="${MSG_ERROR}" class="alert alert-danger mb-4" role="alert">
                     [[${MSG_ERROR}]]
                 </p>
+                <div class="my-4">
+                    <h1 class="my-4">
+                        <span class="float-end">
+                            <img
+                                class="media-object nrw-logo"
+                                th:src="@{/assets/images/wappen.png}"
+                                alt="NRW" />
+                        </span>
+                        Biographisches Portal NRW
+                        <small> &mdash; Der Mensch in seiner Region</small>
+                    </h1>
+                    <form action="#" th:action="@{/search}" method="GET" id="search-form">
+                        <div class="input-group my-2" id="search-simple">
+                            <input
+                                autofocus=""
+                                type="text"
+                                name="q"
+                                id="gnd-query"
+                                th:value="${request.q}"
+                                class="form-control"
+                                autocomplete="off"
+                                placeholder='Suchoptionen: AND, OR, AND NOT, ""-Phrasensuche, *-Trunkierung'
+                                title="Suchanfrage" />
+                            <input type="hidden" name="from" th:value="0" />
+                            <input type="hidden" name="size" th:value="${request.size}" />
+                            <button
+                                type="button"
+                                class="btn btn-default ui-autocomplete-clear"
+                                title="Suchtext löschen">
+                                <i class="bi bi-x-circle"></i>
+                            </button>
+                            <button class="btn btn-default" type="submit" title="Suchen">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
                 <div layout:fragment="content" />
                 <div class="card my-3 mb-0 footer-card">
                     <div class="card-body footer text-center">
