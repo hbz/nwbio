@@ -3,7 +3,7 @@ package org.lobid.gnd.ui;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
-import org.htmlunit.html.HtmlFigureCaption;
+import org.htmlunit.html.DomElement;
 import org.htmlunit.html.HtmlPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -32,14 +32,40 @@ public class IndexTests extends HtmlPageTests {
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
-    public void testIndexImages(String baseUrl) throws IOException {
+    public void testIndexImage(String baseUrl) throws IOException {
+        assertThat(pageFor(baseUrl, "").getElementsByTagName("img").toString())
+                .contains("wappen.png");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {DEVELOPMENT})
+    public void testIndexMapKreiseDefault(String baseUrl) throws IOException {
         HtmlPage indexPage = pageFor(baseUrl, "");
-        assertThat(indexPage.getElementsByTagName("img").toString())
-                .contains("wappen.png")
-                .contains("https://commons.wikimedia.org/wiki/Special:FilePath");
-        HtmlFigureCaption figcaption = indexPage.getFirstByXPath("//figcaption");
-        assertThat(figcaption.getTextContent())
-                .contains("Bildquelle")
-                .contains("Wikimedia Commons");
+        DomElement map = indexPage.getHtmlElementById("map");
+        assertThat(map).isNotNull();
+        assertThat(map.getAttribute("data-scope")).isEqualTo("kreise");
+        assertThat(indexPage.asNormalizedText()).contains("Kreisen (oder Gemeinden)");
+        assertThat(indexPage.getElementsByTagName("a").toString()).contains("/?map=gemeinden");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {DEVELOPMENT})
+    public void testIndexMapGemeindenScope(String baseUrl) throws IOException {
+        HtmlPage indexPage = pageFor(baseUrl, "?map=gemeinden");
+        DomElement map = indexPage.getHtmlElementById("map");
+        assertThat(map).isNotNull();
+        assertThat(map.getAttribute("data-scope")).isEqualTo("gemeinden");
+        assertThat(indexPage.asNormalizedText()).contains("Gemeinden (oder Kreisen)");
+        assertThat(indexPage.getElementsByTagName("a").toString()).contains("/?map=kreise");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {DEVELOPMENT})
+    public void testIndexMapRendersSubunits(String baseUrl) throws IOException {
+        HtmlPage indexPage = pageFor(baseUrl, "");
+        var result =
+                indexPage.executeJavaScript(
+                        "document.querySelectorAll('#map path.map-svg-subunit').length");
+        assertThat(((Number) result.getJavaScriptResult()).intValue()).isGreaterThan(50);
     }
 }
