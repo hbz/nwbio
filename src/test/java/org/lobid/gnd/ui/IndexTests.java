@@ -3,7 +3,10 @@ package org.lobid.gnd.ui;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlInput;
 import org.htmlunit.html.HtmlPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -67,5 +70,23 @@ public class IndexTests extends HtmlPageTests {
                 indexPage.executeJavaScript(
                         "document.querySelectorAll('#map path.map-svg-subunit').length");
         assertThat(((Number) result.getJavaScriptResult()).intValue()).isGreaterThan(50);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {DEVELOPMENT})
+    public void testIndexMapClickStartsLocationSearch(String baseUrl) throws IOException {
+        HtmlPage indexPage = pageFor(baseUrl, "");
+        indexPage.executeJavaScript(
+                "document.querySelector('#map path.map-svg-subunit').dispatchEvent("
+                        + "new MouseEvent('click', {bubbles: true}))");
+        /* After the navigation triggered by the click, the top window's page is the search page: */
+        HtmlPage searchPage =
+                (HtmlPage) indexPage.getEnclosingWindow().getTopWindow().getEnclosedPage();
+        String url = URLDecoder.decode(searchPage.getUrl().toString(), StandardCharsets.UTF_8);
+        assertThat(url).contains("/search?location=");
+        assertThat(url).matches(".*location=[^|]+\\|[a-z0-9+]+.*");
+        HtmlInput searchBox = searchPage.getFirstByXPath("//input[@id='gnd-query']");
+        assertThat(searchBox.getValue()).isNotEmpty();
+        assertThat(searchPage.asNormalizedText()).contains("Treffer, zeige 1 bis");
     }
 }

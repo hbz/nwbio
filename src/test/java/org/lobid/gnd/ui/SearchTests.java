@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import org.assertj.core.api.Condition;
 import org.htmlunit.html.DomAttr;
@@ -25,6 +26,20 @@ public class SearchTests extends HtmlPageTests {
     public void testTrailingSlashSearch(String baseUrl) throws IOException {
         String searchPageText = pageFor(baseUrl, SEARCH + "/").asNormalizedText();
         assertThat(searchPageText).contains("Treffer, zeige 1 bis 10");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {DEVELOPMENT})
+    public void testLocationSearch(String baseUrl) throws IOException {
+        /* The `location` parameter, as sent by the index page map, is
+        translated into a search on its label part (before the `|`): */
+        String location = URLEncoder.encode("Märkischer Kreis|u1jsf7", StandardCharsets.UTF_8);
+        HtmlPage searchPage = pageFor(baseUrl, "search?location=" + location);
+        assertThat(searchPage.asNormalizedText())
+                .contains("Treffer, zeige 1 bis 10")
+                .contains("Märkischer Kreis");
+        HtmlInput searchBox = searchPage.getFirstByXPath("//input[@id='gnd-query']");
+        assertThat(searchBox.getValue()).isEqualTo("Märkischer Kreis");
     }
 
     @ParameterizedTest
