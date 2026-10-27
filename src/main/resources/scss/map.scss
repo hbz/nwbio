@@ -1,0 +1,28 @@
+#map {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+}
+
+.map-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+}
+
+.map-svg path {
+    stroke: #bbbbbb;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+}
+
+.map-svg-nrw {
+    stroke: black;
+    fill: none;
+}
+
+.map-svg-subunit {
+    cursor: pointer;
+    transition: fill 0.2s ease-in-out;
+}
