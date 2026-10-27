@@ -120,6 +120,28 @@ function highlightFillColor(value) {
     return startWithWestfalen(value.id) ? "rgba(238, 25, 33, 1)" : "rgba(0, 163, 76, 1)";
 }
 
+/* Hover tooltip with the district/municipality name, like datamaps in nwbib: */
+function attachTooltip(map, element, name) {
+    var tooltip = document.createElement("span");
+    tooltip.className = "map-tooltip";
+    tooltip.textContent = name;
+    map.appendChild(tooltip);
+    function move(event) {
+        var rect = map.getBoundingClientRect();
+        /* Offset below/right of the cursor so the pointer doesn't cover the tooltip: */
+        tooltip.style.left = event.clientX - rect.left + 12 + "px";
+        tooltip.style.top = event.clientY - rect.top + 14 + "px";
+    }
+    element.addEventListener("mouseenter", function (event) {
+        tooltip.style.display = "block";
+        move(event);
+    });
+    element.addEventListener("mousemove", move);
+    element.addEventListener("mouseleave", function () {
+        tooltip.style.display = "none";
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     var map = document.getElementById("map");
     if (!map) {
@@ -167,6 +189,9 @@ function renderMap(map, topology, scope) {
             element.setAttribute("d", path(geometry));
             element.setAttribute("fill", isNrwOutline ? "none" : fillColor(geometry));
             if (!isNrwOutline) {
+                if (geometry.properties && geometry.properties.name) {
+                    attachTooltip(map, element, geometry.properties.name);
+                }
                 element.addEventListener("mouseenter", function () {
                     element.setAttribute("fill", highlightFillColor(geometry));
                 });
