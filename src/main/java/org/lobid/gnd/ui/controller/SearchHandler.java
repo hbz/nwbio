@@ -14,6 +14,7 @@ import java.util.stream.IntStream;
 import org.lobid.gnd.ui.LobidGndApiService;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -31,12 +32,32 @@ public class SearchHandler {
 
     public Mono<ServerResponse> byQ(ServerRequest request) {
         try {
-            MultiValueMap<String, String> params = request.queryParams();
+            MultiValueMap<String, String> params = forApi(request);
             return Mono.zip(gnd.search(params), gnd.suggest(params))
                     .flatMap(toResponse("search", request));
         } catch (Exception e) {
             return errorResponse(request, 500, "Search failed: " + e.getMessage());
         }
+    }
+
+    /*
+     * The GND API does not support the `location` parameter (yet), so map
+     * clicks, which send `location=<name>|<geohash...>`, are translated into
+     * a simple full-text search on the name part, as a prototype:
+     */
+    private MultiValueMap<String, String> forApi(ServerRequest request) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>(request.queryParams());
+        String location = params.getFirst("location");
+        if (location != null && !location.isEmpty()) {
+            params.remove("location");
+            params.remove("q");
+            params.add("q", labelOf(location));
+        }
+        return params;
+    }
+
+    private String labelOf(String location) {
+        return location.contains("|") ? location.substring(0, location.indexOf('|')) : location;
     }
 
     private Function<Tuple2<Map<String, Object>, Map<String, Object>>, Mono<ServerResponse>>

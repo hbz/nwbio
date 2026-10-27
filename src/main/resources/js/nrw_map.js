@@ -200,9 +200,11 @@ function renderMap(map, topology, scope) {
                 });
                 element.addEventListener("click", function () {
                     if (geometry.properties && geometry.properties.name) {
-                        var label = encodeURIComponent(geometry.properties.name);
                         var polygon = toGeohashes(geometry.geometry.coordinates[0]);
-                        window.location = "/search?location=" + label + "|" + polygon;
+                        /* Encode the whole value (label|geohashes), so that
+                         * the `|` is percent-encoded in the URL: */
+                        var location = encodeURIComponent(geometry.properties.name + "|" + polygon);
+                        window.location = "/search?location=" + location;
                     }
                 });
             }
