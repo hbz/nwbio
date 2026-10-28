@@ -64,8 +64,8 @@ public class ApiCallHandler {
                             || acceptTypes.toString().contains("text/css")
                             || acceptTypes.toString().contains("image/")
                             || acceptTypes.toString().contains("application/font");
-            boolean staticAsset = request.path().startsWith("/assets/");
-            return staticAsset || (browserRequest && !apiCallRequest)
+            boolean staticAssetRequest = request.path().startsWith("/assets/");
+            return staticAssetRequest || (browserRequest && !apiCallRequest)
                     ? next.handle(request)
                     : proxy(request);
         };
