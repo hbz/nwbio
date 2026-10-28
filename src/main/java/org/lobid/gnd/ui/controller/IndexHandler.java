@@ -18,9 +18,8 @@ public class IndexHandler {
 
     public Mono<ServerResponse> page(ServerRequest request) {
         try {
-            Map<String, Object> model =
-                    Map.of("dataset", dataset(), "request", request.attributes());
-            return ServerResponse.ok().render("index", model);
+            return ServerResponse.ok()
+                    .render("index", Map.of("dataset", dataset(), "request", request.attributes()));
         } catch (Exception e) {
             return errorResponse(request, 500, "Failed to load index page: " + e.getMessage());
         }

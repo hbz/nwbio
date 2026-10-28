@@ -12,6 +12,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.lobid.gnd.ui.LobidGndApiService;
+import org.lobid.gnd.ui.config.RouterConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -50,14 +51,9 @@ public class SearchHandler {
         String location = params.getFirst("location");
         if (location != null && !location.isEmpty()) {
             params.remove("location");
-            params.remove("q");
-            params.add("q", labelOf(location));
+            params.set("q", RouterConfig.labelOf(location));
         }
         return params;
-    }
-
-    private String labelOf(String location) {
-        return location.contains("|") ? location.substring(0, location.indexOf('|')) : location;
     }
 
     private Function<Tuple2<Map<String, Object>, Map<String, Object>>, Mono<ServerResponse>>
