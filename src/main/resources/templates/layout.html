@@ -12,6 +12,10 @@
             th:if="${!request.isDevserver}"
             th:href="@{/assets/css/bundle.css}"
             rel="stylesheet" />
+        <link
+            th:if="${!request.isDevserver}"
+            th:href="@{/assets/css/nrw_map.css}"
+            rel="stylesheet" />
         <script th:src="@{/assets/js/bundle.js}" defer></script>
         <script th:inline="javascript">
             const API_BASE_URL = /*[[${@environment.getProperty('app.api')}]]*/ "";

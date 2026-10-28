@@ -71,10 +71,23 @@ public class RouterConfig {
                                         "isDevserver",
                                         "1".equals(request.headers().firstHeader("X-Devserver")))
                                 .attribute("path", request.path())
-                                .attribute("q", request.queryParam("q").orElse(""))
+                                .attribute("map", request.queryParam("map").orElse("kreise"))
+                                .attribute("q", queryParamFor(request))
                                 .attribute("size", request.queryParam("size").orElse("10"))
                                 .attribute("from", request.queryParam("from").orElse("0"))
                                 .attribute("filter", request.queryParam("filter").orElse(""))
                                 .build());
+    }
+
+    private static String queryParamFor(ServerRequest request) {
+        String q = request.queryParam("q").orElse("");
+        return q.isEmpty()
+                ? // The `location` parameter label (from map clicks) is used as the query:
+                request.queryParam("location").map(location -> labelOf(location)).orElse("")
+                : q;
+    }
+
+    public static String labelOf(String location) {
+        return location.contains("|") ? location.substring(0, location.indexOf('|')) : location;
     }
 }

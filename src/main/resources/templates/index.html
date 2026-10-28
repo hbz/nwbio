@@ -5,11 +5,12 @@
     layout:decorate="~{layout}">
     <head>
         <title>[[#{app.title}]]</title>
+        <script th:src="@{/assets/js/nrw_map.js}" defer></script>
     </head>
     <body>
         <div layout:fragment="content">
             <div class="row">
-                <div class="col-9 intro">
+                <div class="col-7 intro">
                     <p class="lead">
                         Das Portal bündelt biographische Informationen über Nordrhein-Westfalen. Sie
                         finden historische und zeitgenössische Persönlichkeiten aus allen
@@ -22,9 +23,25 @@
                         Nordrhein-Westfälischen Bibliographie (NWBib) und im NRW-Bibliothekskatalog
                         sowie auf weitere biographische Informationen im Netz.
                     </p>
+                    <p>
+                        Zum raschen Einstieg nutzen Sie die Suchzeile oder die Karte mit
+                        <th:block th:if="${request.map == 'kreise'}">
+                            Kreisen (oder
+                            <a th:href="@{/?map=gemeinden}">Gemeinden</a>)
+                        </th:block>
+                        <th:block th:unless="${request.map == 'kreise'}">
+                            Gemeinden (oder
+                            <a th:href="@{/?map=kreise}">Kreisen</a>)
+                        </th:block>
+                        .
+                    </p>
                 </div>
-                <div class="col-3">
-                    <div th:replace="~{fragments/figure}" />
+                <div class="col-5">
+                    <div
+                        id="map"
+                        role="img"
+                        aria-label="Karte von Nordrhein-Westfalen"
+                        th:attr="data-scope=${request.map == 'gemeinden' ? 'gemeinden' : 'kreise'}"></div>
                 </div>
             </div>
         </div>
