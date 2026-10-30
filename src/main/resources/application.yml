@@ -10,7 +10,7 @@ logging:
           client:
             HttpClient: INFO
 app:
-  api: https://test.lobid.org/gnd
+  api: https://lobid.org/gnd
   dontShowOnMainPage: 1012979-0, 118551655
   icons:
     CorporateBody: "bi bi-house-gear-fill"
