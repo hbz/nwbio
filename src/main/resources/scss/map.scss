@@ -1,0 +1,43 @@
+#map {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+}
+
+.map-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+}
+
+.map-svg path {
+    stroke: #bbbbbb;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+}
+
+/* Higher specificity than `.map-svg path` so the black outline wins: */
+.map-svg path.map-svg-nrw {
+    stroke: black;
+    fill: none;
+}
+
+.map-svg-subunit {
+    cursor: pointer;
+    transition: fill 0.2s ease-in-out;
+}
+
+.map-tooltip {
+    position: absolute;
+    display: none;
+    z-index: 10;
+    padding: 0.15em 0.4em;
+    font-size: 0.85em;
+    color: #343d42;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #bbbbbb;
+    border-radius: 0.25rem;
+    pointer-events: none;
+    white-space: nowrap;
+}

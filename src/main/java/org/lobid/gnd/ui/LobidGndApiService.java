@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -34,9 +33,6 @@ public class LobidGndApiService {
     @Value("${app.api}")
     private String apiBaseUrl;
 
-    @Value("${app.dontShowOnMainPage}")
-    private String[] dontShowOnMainPage;
-
     private static final ObjectMapper JSON = new ObjectMapper();
 
     private static final ConcurrentHashMap<String, Mono<String>> cache = new ConcurrentHashMap<>();
@@ -55,19 +51,6 @@ public class LobidGndApiService {
         Function<UriBuilder, URI> uriFunction = builder -> builder.path("/{gndId}").build(gndId);
         return gndCall(uriFunction)
                 .flatMap(this::withPropertyAndTypeLabels)
-                .map(this::withImageUrlAndAttribution);
-    }
-
-    public Mono<Map<String, Object>> randomEntity() {
-        Function<UriBuilder, URI> uriFunction =
-                builder ->
-                        builder.path("/search")
-                                .queryParam("q", q())
-                                .queryParam("size", "1")
-                                .queryParam("from", String.valueOf(new Random().nextInt(7500)))
-                                .build();
-        return gndCall(uriFunction)
-                .map(this::firstMemberAsMap)
                 .map(this::withImageUrlAndAttribution);
     }
 
@@ -121,19 +104,6 @@ public class LobidGndApiService {
         return json.isArray()
                 ? Map.of("array", JSON.convertValue(json, Map[].class))
                 : JSON.convertValue(json, new TypeReference<>() {});
-    }
-
-    private String q() {
-        String qParam = "depiction:*";
-        for (String dont : dontShowOnMainPage) {
-            qParam += " AND NOT gndIdentifier:" + dont;
-        }
-        return qParam;
-    }
-
-    private Map<String, Object> firstMemberAsMap(JsonNode json) {
-        JsonNode firstMember = json.get("member").elements().next();
-        return JSON.convertValue(firstMember, new TypeReference<>() {});
     }
 
     private Mono<String> labelForId(JsonNode json, String kind, String id, String field) {
