@@ -7,6 +7,7 @@ const WarningsToErrorsPlugin = require("warnings-to-errors-webpack-plugin");
 module.exports = (env, argv) => ({
     entry: {
         bundle: "./src/main/resources/js/app.js",
+        nrw_map: "./src/main/resources/js/nrw_map.js",
     },
     output: {
         path: path.resolve(__dirname, "./build/resources/main/static"),
