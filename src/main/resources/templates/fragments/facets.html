@@ -1,4 +1,4 @@
-<div th:fragment="facetsArea" th:if="${total > 0}" class="col-md-4" id="facets">
+<div th:fragment="facetsArea" th:if="${total > 0}" class="col-md-4 mt-2" id="facets">
     <h5 class="mb-4">Ergebnisse eingrenzen:</h5>
     <p />
     <div th:replace="~{this::facet('gndSubjectCategory.id', 'GND-Sachgruppe')}" />

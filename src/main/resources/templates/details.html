@@ -8,7 +8,7 @@
     </head>
     <body>
         <div layout:fragment="content">
-            <h1 class="page-header mb-4">
+            <h2 class="page-header mb-4">
                 <a
                     th:with="info='Namen in die Zwischenablage kopieren'"
                     class="invisible-link"
@@ -37,7 +37,7 @@
                 </a>
                 <br />
                 <small th:text="${entity.labels.get(entity.gndIdentifier)}">Description...</small>
-            </h1>
+            </h2>
             <div th:if="${@details.isLivingPerson(entity)}" id="meta-person" class="card">
                 <div class="card-header" role="tab" id="headingOne">
                     <h5 class="card-text">

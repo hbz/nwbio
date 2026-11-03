@@ -36,7 +36,7 @@ public class DetailsTests extends HtmlPageTests {
     @ValueSource(strings = {DEVELOPMENT})
     public void testDetailsViewHeader(String baseUrl) throws IOException {
         HtmlPage detailsPage = pageFor(baseUrl, ALBERT);
-        assertThat(detailsPage.getElementsByTagName("h1").getFirst().getTextContent())
+        assertThat(detailsPage.getElementsByTagName("h2").getFirst().getTextContent())
                 .as("Main header of full page as XML: \n%s", detailsPage.asXml())
                 .contains("Albertus, Magnus, Heiliger")
                 .contains("Person")
