@@ -130,7 +130,7 @@
 
             <p>Standardmäßig liefert dieser Dienst strukturierte API-Antworten (als JSON):</p>
 
-            <p><code>curl -L [[${baseUrl}]]/4074335-4</code></p>
+            <p><code>curl [[${baseUrl}]]/4074335-4</code></p>
 
             <p>
                 Er unterstützt Content-Negotiation über den Accept-Header für JSON
@@ -138,10 +138,7 @@
             </p>
 
             <p>
-                <code
-                    >curl -L --header "Accept: application/json"
-                    [[${baseUrl}]]/search?q=london</code
-                >
+                <code>curl --header "Accept: application/json" [[${baseUrl}]]/search?q=london</code>
             </p>
 
             <p>
@@ -183,7 +180,7 @@
 
             <p>
                 <code
-                    >curl -L --header "Accept: application/x-jsonlines"
+                    >curl --header "Accept: application/x-jsonlines"
                     "[[${baseUrl}]]/search?q=type:Country" &gt; countries.jsonl</code
                 >
             </p>
@@ -192,7 +189,7 @@
 
             <p>
                 <code
-                    >curl -L --header "Accept-Encoding: gzip"
+                    >curl --header "Accept-Encoding: gzip"
                     "[[${baseUrl}]]/search?q=type:Company&amp;format=jsonl" &gt; companies.gz</code
                 >
             </p>
@@ -336,16 +333,15 @@
                 </dd>
                 <dd>
                     <code
-                        >curl -L --header "Accept: application/rdf+xml"
-                        [[${baseUrl}]]/4074335-4</code
+                        >curl --header "Accept: application/rdf+xml" [[${baseUrl}]]/4074335-4</code
                     >
                 </dd>
                 <dd>
-                    <code>curl -L --header "Accept: text/turtle" [[${baseUrl}]]/4074335-4</code>
+                    <code>curl --header "Accept: text/turtle" [[${baseUrl}]]/4074335-4</code>
                 </dd>
                 <dd>
                     <code
-                        >curl -L --header "Accept: application/n-triples"
+                        >curl --header "Accept: application/n-triples"
                         [[${baseUrl}]]/4074335-4</code
                     >
                 </dd>

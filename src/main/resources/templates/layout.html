@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html
-    lang="en"
+    lang="de"
     xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
+        <th:block th:insert="~{fragments/theme}"></th:block>
         <title layout:title-pattern="$CONTENT_TITLE">[[#{app.title}]]</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -129,65 +130,80 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="dropdown ms-auto">
-                            <a
-                                class="btn dropdown-toggle"
-                                href="#"
-                                role="button"
-                                id="dropdownMenuLink"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
+                        <div class="d-flex ms-auto align-items-center">
+                            <button
+                                type="button"
+                                class="btn btn-link nav-link me-3"
+                                id="theme-toggle"
+                                th:title="#{theme.toggle}"
+                                th:aria-label="#{theme.toggle}">
+                                <i class="bi bi-brightness-high-fill"></i>
+                            </button>
 
-                            <ul
-                                class="dropdown-menu dropdown-menu-end"
-                                aria-labelledby="dropdownMenuLink">
-                                <li class="dropdown-item">
-                                    <a
-                                        href="https://www.ulb.uni-muenster.de/landesbibliothek/recherche/biographie/index.html">
-                                        Biographisches Portal NRW
-                                    </a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a
-                                        th:href="@{'mailto:lobid-admin@hbz-nrw.de?subject=Feedback%20zum%20Biographischen%20Portal%20NRW,%20aktuelle%20Seite:%20' + ${request.path}}">
-                                        Feedback zur aktuellen Seite
-                                    </a>
-                                </li>
-                                <li class="dropdown-divider"></li>
-                                <li class="dropdown-header">Fachliche Kontakte</li>
-                                <li class="dropdown-item">
-                                    <a
-                                        href="http://www.ulb.uni-muenster.de/landesbibliothek/profil/ansprechpartner/index.html">
-                                        ULB Münster
-                                    </a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a href="https://www.ulb.hhu.de/sammlungen/landesbibliothek">
-                                        ULB Düsseldorf
-                                    </a>
-                                </li>
-                                <li class="dropdown-divider"></li>
-                                <li class="dropdown-header">Technische Informationen</li>
-                                <li class="dropdown-item">
-                                    <a href="https://lobid.org/team">Kontakt</a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a href="https://github.com/hbz/nwbio">Daten und Software</a>
-                                </li>
-                                <li class="dropdown-divider"></li>
-                                <li class="dropdown-header">Rechtliche Informationen</li>
-                                <li class="dropdown-item">
-                                    <a href="http://www.hbz-nrw.de/impressum/">Impressum</a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a
-                                        href="https://github.com/hbz/nwbib/blob/master/conf/Datenschutzerklaerung_NWBib.textile">
-                                        Datenschutz
-                                    </a>
-                                </li>
-                            </ul>
+                            <div class="dropdown">
+                                <a
+                                    class="btn dropdown-toggle nav-link me-2"
+                                    href="#"
+                                    role="button"
+                                    id="dropdownMenuLink"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                    th:classappend="${request.path == '/dataset'} ? 'active' : ''">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+
+                                <ul
+                                    class="dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <li class="dropdown-item">
+                                        <a
+                                            href="https://www.ulb.uni-muenster.de/landesbibliothek/recherche/biographie/index.html">
+                                            Biographisches Portal NRW
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a
+                                            th:href="@{'mailto:lobid-admin@hbz-nrw.de?subject=Feedback%20zum%20Biographischen%20Portal%20NRW,%20aktuelle%20Seite:%20' + ${request.path}}">
+                                            Feedback zur aktuellen Seite
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown-header">Fachliche Kontakte</li>
+                                    <li class="dropdown-item">
+                                        <a
+                                            href="http://www.ulb.uni-muenster.de/landesbibliothek/profil/ansprechpartner/index.html">
+                                            ULB Münster
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a
+                                            href="https://www.ulb.hhu.de/sammlungen/landesbibliothek">
+                                            ULB Düsseldorf
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown-header">Technische Informationen</li>
+                                    <li class="dropdown-item">
+                                        <a href="https://lobid.org/team">Kontakt</a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a href="https://github.com/hbz/nwbio"
+                                            >Daten und Software</a
+                                        >
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown-header">Rechtliche Informationen</li>
+                                    <li class="dropdown-item">
+                                        <a href="http://www.hbz-nrw.de/impressum/">Impressum</a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a
+                                            href="https://github.com/hbz/nwbib/blob/master/conf/Datenschutzerklaerung_NWBib.textile">
+                                            Datenschutz
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

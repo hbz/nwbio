@@ -1,6 +1,6 @@
 package org.lobid.gnd.ui.controller;
 
-import static org.lobid.gnd.ui.controller.ErrorHandler.errorResponse;
+import static org.lobid.gnd.ui.controller.ErrorHandler.apiErrorResponse;
 
 import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
@@ -17,6 +17,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -32,13 +33,10 @@ public class SearchHandler {
     }
 
     public Mono<ServerResponse> byQ(ServerRequest request) {
-        try {
-            MultiValueMap<String, String> params = forApi(request);
-            return Mono.zip(gnd.search(params), gnd.suggest(params))
-                    .flatMap(toResponse("search", request));
-        } catch (Exception e) {
-            return errorResponse(request, 500, "Search failed: " + e.getMessage());
-        }
+        MultiValueMap<String, String> params = forApi(request);
+        return Mono.zip(gnd.search(params), gnd.suggest(params))
+                .flatMap(toResponse("search", request))
+                .onErrorResume(WebClientResponseException.class, e -> apiErrorResponse(request, e));
     }
 
     /*

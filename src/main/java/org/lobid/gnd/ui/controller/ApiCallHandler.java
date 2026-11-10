@@ -1,11 +1,12 @@
 package org.lobid.gnd.ui.controller;
 
+import static org.lobid.gnd.ui.controller.ErrorHandler.apiErrorResponse;
+
 import io.netty.handler.logging.LogLevel;
 import java.net.URI;
 import java.time.Duration;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.reactive.function.server.HandlerFilterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -40,7 +42,7 @@ public class ApiCallHandler {
                 HttpClient.create(provider)
                         .wiretap(
                                 "reactor.netty.http.client.HttpClient",
-                                LogLevel.INFO,
+                                LogLevel.DEBUG,
                                 AdvancedByteBufFormat.TEXTUAL);
         this.webClient =
                 WebClient.builder()
@@ -54,7 +56,9 @@ public class ApiCallHandler {
             String apiFormats = "(json(l|ld|:.*)?|ttl|rdf|nt|preview)";
             boolean apiCallRequest =
                     pathSuffixMatchesFormat(request, apiFormats)
-                            || request.queryParam("format").orElse("").matches(apiFormats);
+                            || request.queryParam("format").orElse("").matches(apiFormats)
+                            || request.queryParam("queries").isPresent()
+                            || request.queryParam("extend").isPresent();
             List<MediaType> acceptTypes =
                     MediaType.parseMediaTypes(request.headers().header(HttpHeaders.ACCEPT));
             String browserFormats = "(html|js|css|png|jpg|woff2?)";
@@ -83,7 +87,14 @@ public class ApiCallHandler {
                 .body(request.bodyToFlux(DataBuffer.class), DataBuffer.class)
                 .retrieve()
                 .toEntityFlux(DataBuffer.class)
-                .flatMap(toResponse());
+                .flatMap(this::toServerResponse)
+                .onErrorResume(WebClientResponseException.class, e -> apiErrorResponse(request, e));
+    }
+
+    private Mono<ServerResponse> toServerResponse(ResponseEntity<Flux<DataBuffer>> entity) {
+        return ServerResponse.status(entity.getStatusCode())
+                .headers(headers -> headers.addAll(entity.getHeaders()))
+                .body(entity.getBody(), DataBuffer.class);
     }
 
     private URI uriFrom(ServerRequest request) {
@@ -101,13 +112,7 @@ public class ApiCallHandler {
         return headers -> {
             headers.setAccept(request.headers().asHttpHeaders().getAccept());
             headers.setContentType(request.headers().asHttpHeaders().getContentType());
+            headers.setOrigin(request.headers().asHttpHeaders().getOrigin());
         };
-    }
-
-    private Function<ResponseEntity<Flux<DataBuffer>>, Mono<ServerResponse>> toResponse() {
-        return entity ->
-                ServerResponse.status(entity.getStatusCode())
-                        .headers(headers -> headers.addAll(entity.getHeaders()))
-                        .body(entity.getBody(), DataBuffer.class);
     }
 }

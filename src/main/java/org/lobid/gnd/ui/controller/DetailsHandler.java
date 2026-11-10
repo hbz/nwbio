@@ -1,6 +1,6 @@
 package org.lobid.gnd.ui.controller;
 
-import static org.lobid.gnd.ui.controller.ErrorHandler.errorResponse;
+import static org.lobid.gnd.ui.controller.ErrorHandler.apiErrorResponse;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,8 +16,11 @@ import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.lobid.gnd.ui.LobidGndApiService;
+import org.lobid.gnd.ui.LobidGndApiService.GndEntityResult;
+import org.lobid.gnd.ui.LobidGndApiService.Redirect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -38,12 +41,20 @@ public class DetailsHandler {
     }
 
     public Mono<ServerResponse> byId(ServerRequest request) {
-        try {
-            return gnd.entity(request.pathVariable("id").replace(".html", ""))
-                    .flatMap(toResponse("details", request));
-        } catch (Exception e) {
-            return errorResponse(request, 500, "Failed to load details page: " + e.getMessage());
-        }
+        String gndId = request.pathVariable("id").replace(".html", "");
+        return gnd.entity(gndId)
+                .<ServerResponse>flatMap(result -> entityOrRedirect(request, result))
+                .onErrorResume(WebClientResponseException.class, e -> apiErrorResponse(request, e));
+    }
+
+    private Mono<? extends ServerResponse> entityOrRedirect(
+            ServerRequest request, GndEntityResult result) {
+        return switch (result) {
+            case GndEntityResult.EntityMap entity ->
+                    toResponse("details", request).apply(entity.data());
+            case Redirect redirect ->
+                    ServerResponse.status(redirect.status()).location(redirect.location()).build();
+        };
     }
 
     @Component("details")
@@ -111,7 +122,7 @@ public class DetailsHandler {
                 return Integer.parseInt(year);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
-                return null;
+                return Integer.MIN_VALUE;
             }
         }
 

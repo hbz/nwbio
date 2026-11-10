@@ -30,6 +30,7 @@ dd {
 
 #header img {
     height: 25px;
+    vertical-align: center !important;
 }
 
 #search-form {
@@ -376,14 +377,9 @@ figcaption {
 }
 
 pre {
-    background-color: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
     padding: 1rem;
-}
-
-code {
-    background-color: #f9f2f4;
 }
 
 textarea {
@@ -432,4 +428,8 @@ textarea {
 .hbz-logo {
     height: 40px;
     padding: 10px 0px 10px 0px;
+}
+
+.gnd-bi {
+    color: #f4f4f5;
 }

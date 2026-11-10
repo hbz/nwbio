@@ -62,7 +62,7 @@ Start the DevServer:
 npm run devserver
 ```
 
-The application with live reloading is now accessible at http://localhost:8081/gnd.
+The application with live reloading is now accessible at http://localhost:8081.
 
 ## Production deployment
 
@@ -80,7 +80,9 @@ sudo systemctl start|stop|restart|status nwbio
 
 ## Production setup
 
-Initial service setup (required only once):
+First, create a dedicated user for the service in advance and change the default user in `lobid-gnd-ui.service` file.
+
+Then, initially set up the service (required only once):
 
 ```
 sudo ln -sr build/libs/nwbio-0.0.1-SNAPSHOT.jar /opt/nwbio.jar

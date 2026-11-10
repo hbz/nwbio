@@ -1,0 +1,43 @@
+version: 2
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "github_actions"
+    groups:
+      actions:
+        patterns:
+          - "*"
+  # Maintain Gradle dependencies (Spring Boot, HtmlUnit, build plugins)
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "gradle"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    groups:
+      gradle:
+        patterns:
+          - "*"
+  # Maintain npm dependencies (frontend runtime + build tooling)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "npm"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    groups:
+      npm:
+        patterns:
+          - "*"

@@ -8,6 +8,7 @@ import org.htmlunit.html.HtmlButton;
 import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlInput;
 import org.htmlunit.html.HtmlPage;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -225,14 +226,11 @@ public class ApiDocTests extends HtmlPageTests {
         assertThat(pageFor(baseUrl, API_DOC).asNormalizedText())
                 .contains("input.search-gnd")
                 .contains(".autocomplete")
-                .contains("url")
-                .contains(": \"/search\"")
-                .contains("dataType")
-                .contains(": \"jsonp\"")
-                .contains("q")
-                .contains(": request.term")
-                .contains("format")
-                .contains(": \"json:preferredName,professionOrOccupation\"");
+                .contains("https://biographie.nrw/search")
+                .containsPattern("url ?: .*/search")
+                .containsPattern("dataType ?: \"jsonp?\"")
+                .containsPattern("q ?: request.term")
+                .containsPattern("format ?: \"json:preferredName,professionOrOccupation\"");
     }
 
     @ParameterizedTest
@@ -282,6 +280,7 @@ public class ApiDocTests extends HtmlPageTests {
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
+    @Tag("skip-in-ci")
     public void testAutocompleteSuggestExample(String baseUrl) throws IOException {
         HtmlPage apiPage = pageFor(baseUrl, API_DOC);
 

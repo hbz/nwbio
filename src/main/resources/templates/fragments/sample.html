@@ -3,8 +3,8 @@
         $("input.search-gnd").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/search",
-                    dataType: "jsonp",
+                    url: "https://biographie.nrw/search",
+                    dataType: "json",
                     data: {
                         q: request.term,
                         format: "json:preferredName,professionOrOccupation",
