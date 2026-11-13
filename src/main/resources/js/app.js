@@ -32,6 +32,7 @@ import L from "leaflet";
         icon.classList.remove(isDark ? light : dark);
     }
 
+    /* Disable dark theme for nwbio:
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById(TOGGLE_ELEMENT).addEventListener("click", function () {
             const currentTheme = htmlElement.getAttribute("data-bs-theme");
@@ -39,6 +40,7 @@ import L from "leaflet";
             applyTheme(newTheme);
         });
     });
+    */
 })();
 
 document.addEventListener("DOMContentLoaded", function () {
