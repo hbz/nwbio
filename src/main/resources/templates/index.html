@@ -12,19 +12,23 @@
             <div class="row">
                 <div class="col-7 intro">
                     <p class="lead">
-                        Das Portal bündelt biographische Informationen über Nordrhein-Westfalen. Sie
-                        finden historische und zeitgenössische Persönlichkeiten aus allen
-                        Lebensbereichen, Regionen und Orten sowie mit vielfältigen Bezügen zum Land
-                        NRW.
+                        Sie suchen Informationen über Personen aus NRW? Dann stöbern Sie in unserem
+                        Portal, das mehr als 40.000 Biogramme bietet.
                     </p>
                     <p>
-                        Ihre Recherche führt auf übersichtliche Biogramme der für die Region
-                        bedeutsamen Personen, auf zugehörige Literatur besonders in der
-                        Nordrhein-Westfälischen Bibliographie (NWBib) und im NRW-Bibliothekskatalog
-                        sowie auf weitere biographische Informationen im Netz.
+                        Hier finden Sie Informationen über historische und zeitgenössische Personen
+                        aller Lebensbereiche, die bedeutsam für Nordrhein-Westfalen sind. Hierfür
+                        werden die Personenschlagwörter der
+                        <a href="https://nwbib.de/"
+                            >Nordrhein-Westfälischen Bibliographie (NWBib)</a
+                        >
+                        nachgenutzt, sodass das Portal mit Neuverzeichnungen der
+                        <a href="https://nwbib.de/">NWBib</a> immer weiter wächst.
                     </p>
                     <p>
-                        Zum raschen Einstieg nutzen Sie die Suchzeile oder die Karte mit
+                        Recherchieren Sie flexibel: Geben Sie Namen, Lebensdaten oder Berufe in die
+                        Suchzeile ein oder starten Sie über die interaktive Karte, um Personen aus
+                        bestimmten
                         <th:block th:if="${request.map == 'kreise'}">
                             Kreisen (oder
                             <a th:href="@{/?map=gemeinden}">Gemeinden</a>)
@@ -33,7 +37,15 @@
                             Gemeinden (oder
                             <a th:href="@{/?map=kreise}">Kreisen</a>)
                         </th:block>
-                        .
+                        zu entdecken. Die Ergebnisliste liefert Ihnen strukturierte Biogramme,
+                        Verlinkungen zu einschlägigen Nachschlagewerken und die zugehörige Literatur
+                        im
+                        <a href="https://www.hbz-nrw.de/de/verbundkatalog/">NRW-Verbundkatalog</a>.
+                    </p>
+                    <p>
+                        Sollten Sie Fragen oder Anregungen zum Portal haben, stehen Ihnen unsere
+                        Ansprechpartner:innen gerne zur Verfügung. Kontaktangaben finden Sie unter
+                        dem Informationspunkt oben rechts.
                     </p>
                 </div>
                 <div class="col-5">
