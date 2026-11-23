@@ -20,8 +20,8 @@ public class LayoutTests extends HtmlPageTests {
         assertThat(testPage.asNormalizedText())
                 .contains("gnd")
                 .contains("Erkunden")
-                .contains("Ergänzende Suche")
-                .contains("Landesbibliotheken")
+                .contains("Rund um die Landesbibliotheken")
+                .contains("Weitere regionale Biographien")
                 .contains("hbz");
     }
 
