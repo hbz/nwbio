@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlFigureCaption;
 import org.htmlunit.html.HtmlInput;
 import org.htmlunit.html.HtmlPage;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,9 +35,15 @@ public class IndexTests extends HtmlPageTests {
 
     @ParameterizedTest
     @ValueSource(strings = {DEVELOPMENT})
-    public void testIndexImage(String baseUrl) throws IOException {
-        assertThat(pageFor(baseUrl, "").getElementsByTagName("img").toString())
-                .contains("wappen.png");
+    public void testIndexImages(String baseUrl) throws IOException {
+        HtmlPage indexPage = pageFor(baseUrl, "");
+        assertThat(indexPage.getElementsByTagName("img").toString())
+                .contains("wappen.png")
+                .contains("https://commons.wikimedia.org/wiki/Special:FilePath");
+        HtmlFigureCaption figcaption = indexPage.getFirstByXPath("//figcaption");
+        assertThat(figcaption.getTextContent())
+                .contains("Bildquelle")
+                .contains("Wikimedia Commons");
     }
 
     @ParameterizedTest

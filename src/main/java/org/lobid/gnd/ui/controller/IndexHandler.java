@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import org.lobid.gnd.ui.LobidGndApiService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
@@ -17,15 +18,32 @@ import reactor.core.publisher.Mono;
 @Component
 public class IndexHandler {
 
+    private final LobidGndApiService gnd;
+
+    public IndexHandler(LobidGndApiService gnd) {
+        this.gnd = gnd;
+    }
+
     public Mono<ServerResponse> page(ServerRequest request) {
         try {
-            return ServerResponse.ok()
-                    .render("index", Map.of("dataset", dataset(), "request", request.attributes()))
+            Map<String, Object> dataset = dataset();
+            return gnd.randomEntity()
+                    .flatMap(entity -> toResponse("index", request, dataset, entity))
                     .onErrorResume(
                             WebClientResponseException.class, e -> apiErrorResponse(request, e));
         } catch (IOException e) {
             return Mono.error(e);
         }
+    }
+
+    private Mono<ServerResponse> toResponse(
+            String template,
+            ServerRequest request,
+            Map<String, Object> dataset,
+            Map<String, Object> entity) {
+        Map<String, Map<String, Object>> model =
+                Map.of("entity", entity, "dataset", dataset, "request", request.attributes());
+        return ServerResponse.ok().render(template, model);
     }
 
     private Map<String, Object> dataset() throws IOException {

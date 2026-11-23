@@ -153,7 +153,9 @@
                         th:data-geo="${geoData}"
                         th:data-type="${entity.type}"
                         th:data-title="${entity.preferredName}"></div>
-                    <div th:if="${hasImage}"><div th:replace="~{fragments/figure}" /></div>
+                    <div th:if="${hasImage}">
+                        <div th:replace="~{fragments/figure::figure('right')}" />
+                    </div>
                 </div>
             </div>
         </div>

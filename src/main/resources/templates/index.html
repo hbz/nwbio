@@ -10,7 +10,10 @@
     <body>
         <div layout:fragment="content">
             <div class="row">
-                <div class="col-7 intro">
+                <div class="col-2 mt-1">
+                    <div th:replace="~{fragments/figure::figure('left')}" />
+                </div>
+                <div class="col-7 ps-4">
                     <p class="lead">
                         Sie suchen Informationen über Personen aus NRW? Dann stöbern Sie in unserem
                         Portal, das mehr als 40.000 Biogramme bietet.
@@ -48,7 +51,7 @@
                         dem Informationspunkt oben rechts.
                     </p>
                 </div>
-                <div class="col-5">
+                <div class="col-3">
                     <div
                         id="map"
                         role="img"
