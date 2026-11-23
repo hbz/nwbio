@@ -30,7 +30,12 @@ dd {
 
 #header img {
     height: 25px;
+    border-radius: 0.25rem;
     vertical-align: center !important;
+}
+
+#header a {
+    color: var(--bs-body-color);
 }
 
 #search-form {
