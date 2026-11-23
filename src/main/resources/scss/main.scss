@@ -172,13 +172,6 @@ a.active {
     height: 20px;
 }
 
-.intro {
-    padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .pagination-panel {
     padding-top: 5px;
     padding-bottom: 25px;
@@ -280,19 +273,34 @@ h5 {
 
 figure {
     display: table;
+}
+
+#entity-image {
+    max-width: 100%;
+    max-height: 280px;
+}
+
+figure.left,
+figure.left a #entity-image {
+    float: left;
+}
+
+figure.right,
+figure.right a #entity-image {
     float: right;
 }
 
 figcaption {
     display: table-caption;
     caption-side: bottom;
-    text-align: right;
 }
 
-#entity-image {
-    max-width: 100%;
-    max-height: 300px;
-    float: right;
+figure.left figcaption {
+    text-align: left;
+}
+
+figure.right figcaption {
+    text-align: right;
 }
 
 .json-ld-icon {

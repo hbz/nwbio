@@ -1,12 +1,16 @@
-<figure xmlns:th="http://www.thymeleaf.org">
+<figure xmlns:th="http://www.thymeleaf.org" th:fragment="figure(position)" th:class="${position}">
     <a th:href="@{'/' + ${entity.gndIdentifier}}">
         <img id="entity-image" th:src="@{${entity.imageUrl}}" th:alt="${entity.preferredName}" />
     </a>
     <figcaption>
-        <a th:href="@{'/' + ${entity.gndIdentifier}}" th:text="${entity.preferredName}">
-            An entity
-        </a>
-        <br />
-        <small th:utext="${entity.imageAttribution}">An attribution</small>
+        <small>
+            <a th:href="@{'/' + ${entity.gndIdentifier}}" th:text="${entity.preferredName}">
+                An entity
+            </a>
+            <br />
+            <span th:utext="${entity.imageAttribution}" style="font-size: 0.6rem !important">
+                An attribution
+            </span>
+        </small>
     </figcaption>
 </figure>

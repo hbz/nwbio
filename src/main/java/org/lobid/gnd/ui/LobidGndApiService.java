@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -50,6 +51,9 @@ public class LobidGndApiService {
 
     @Value("${app.api}")
     private String apiBaseUrl;
+
+    @Value("${app.dontShowOnMainPage}")
+    private String[] dontShowOnMainPage;
 
     private static final ObjectMapper JSON = new ObjectMapper();
 
@@ -94,6 +98,20 @@ public class LobidGndApiService {
                                 .cache(Duration.ofHours(1))
                                 .doOnError(e -> entityCache.remove(key));
         return entityCache.computeIfAbsent(gndId, callFunction);
+    }
+
+    public Mono<Map<String, Object>> randomEntity() {
+        Function<UriBuilder, URI> uriFunction =
+                builder ->
+                        builder.path("/search")
+                                .queryParam("q", q())
+                                .queryParam("size", "1")
+                                .queryParam("from", String.valueOf(new Random().nextInt(7500)))
+                                .build();
+        return gndCall(uriFunction)
+                .map(this::jsonBody)
+                .map(this::firstMemberAsMap)
+                .map(this::withImageUrlAndAttribution);
     }
 
     private Mono<GndEntityResult> entityOrRedirect(GndJsonResult result) {
@@ -172,6 +190,19 @@ public class LobidGndApiService {
                         "dateOfProduction",
                         "geographicAreaCode")
                 .collect(Collectors.joining(","));
+    }
+
+    private String q() {
+        String qParam = "depiction:*";
+        for (String dont : dontShowOnMainPage) {
+            qParam += " AND NOT gndIdentifier:" + dont;
+        }
+        return qParam;
+    }
+
+    private Map<String, Object> firstMemberAsMap(JsonNode json) {
+        JsonNode firstMember = json.get("member").elements().next();
+        return JSON.convertValue(firstMember, new TypeReference<>() {});
     }
 
     private Map<String, Object> javaMap(JsonNode json) {
