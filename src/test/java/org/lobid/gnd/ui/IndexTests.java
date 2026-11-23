@@ -21,8 +21,7 @@ public class IndexTests extends HtmlPageTests {
                 .contains("Entwicklungsprojekt")
                 .contains("Biographisches Portal NRW")
                 .contains("Der Mensch in seiner Region")
-                .contains(
-                        "Das Portal bündelt biographische Informationen über Nordrhein-Westfalen.");
+                .contains("Sie suchen Informationen über Personen aus NRW?");
     }
 
     @ParameterizedTest
